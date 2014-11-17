@@ -21,7 +21,7 @@ Check whether a feature is enabled in a route, controller, helper, component or 
     plans: function(){
       if (this.features.enabled('new-billing-plans'){
          // Return new plans
-      else {
+      } else {
          // Return old plans
       }
     }.property()
