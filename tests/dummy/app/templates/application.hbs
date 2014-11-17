@@ -1,3 +1,13 @@
 <h2 id='title'>Welcome to Ember.js</h2>
 
 {{outlet}}
+
+{{#ff 'acceptance-feature'}}
+  <div class="acceptance-feature-on"></div>
+{{else}}
+  <div class="acceptance-feature-off"></div>
+{{/ff}}
+
+{{#ff 'off-feature'}}
+  <div class="off-feature-on"></div>
+{{/ff}}

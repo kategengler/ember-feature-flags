@@ -44,7 +44,8 @@
     "andThen",
     "currentURL",
     "currentPath",
-    "currentRouteName"
+    "currentRouteName",
+    "withFeature"
   ],
   "node": false,
   "browser": false,
