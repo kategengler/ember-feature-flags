@@ -1,8 +1,11 @@
 import Ember from 'ember';
 
+var get = Ember.get;
+var set = Ember.set;
+
 export function withFeature( featureName ){
-  window.Features = window.Features || {};
-  window.Features[featureName] = true;
+  set(window, 'Features', get(window, 'Features') || {});
+  set(get(window, 'Features'), featureName, true);
 }
 
 Ember.Test.registerHelper( 'withFeature', function ( app, featureName ) {
