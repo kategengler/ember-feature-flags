@@ -1,4 +1,4 @@
-# ember-feature-flags
+# ember-feature-flags [![Build Status](https://travis-ci.org/kategengler/ember-feature-flags.svg?branch=master)](https://travis-ci.org/kategengler/ember-feature-flags)
 An ember-cli addon to provide feature flags. 
 
 ## To use: 
@@ -105,4 +105,3 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 ## Todo
 
 - [ ] Allow setting features a way other than a global
-- [ ] Setup build
