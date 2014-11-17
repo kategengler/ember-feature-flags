@@ -3,7 +3,7 @@ An ember-cli addon to provide feature flags.
 
 ## To use: 
 
-Provide a global, window.Features, with your feature flags and their values:
+Provide a global, `window.Features`, with your feature flags and their values:
 
 ```js
   window.Features = {
@@ -12,7 +12,7 @@ Provide a global, window.Features, with your feature flags and their values:
   }
 ```
 
-Any features not included in window.Features will be off by default.
+Any features not included in `window.Features` will be off by default.
 
 Check whether a feature is enabled in a route, controller, helper, component or view, by using `this.features.enabled`:
 
@@ -28,7 +28,7 @@ Check whether a feature is enabled in a route, controller, helper, component or 
   });
 ```
 
-Check whether a feature is enabled in a template, using the `ff` helper: 
+Check whether a feature is enabled in a template, using the provided `#ff` handlebars helper: 
 
 ```html
   {{#ff 'new-homepage'}}
@@ -38,11 +38,11 @@ Check whether a feature is enabled in a template, using the `ff` helper:
   {{/ff}}
 ```
 
-Note that features are not bound, updating window.Features will not live-toggle features.
+Note that features are not bound, updating `window.Features` will not live-toggle features.
 
 ## Configuration options
 
-* ENV.LOG_FEATURE_FLAG_MISS
+#### `ENV.LOG_FEATURE_FLAG_MISS`
 Will log when a feature flag is queried and found to be off, useful to prevent cursing at the app, 
 wondering why your feature is not working.
 
@@ -78,6 +78,8 @@ import { resetFeatureFlags } from 'ember-feature-flags/tests/helpers/reset-featu
 
 Call `resetFeatureFlags()` before the app is created in `startApp`.
 
+# Development
+
 ## Installation
 
 * `git clone` this repository
@@ -102,4 +104,4 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 
 ## Todo
 
-[ ] Allow setting features a way other than a global
+- [ ] Allow setting features a way other than a global
