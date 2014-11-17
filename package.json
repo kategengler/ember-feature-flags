@@ -1,6 +1,6 @@
 {
   "name": "ember-feature-flags",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "directories": {
     "doc": "doc",
     "test": "tests"
