@@ -105,3 +105,4 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 ## Todo
 
 - [ ] Allow setting features a way other than a global
+- [ ] Setup build
