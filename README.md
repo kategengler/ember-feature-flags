@@ -19,7 +19,7 @@ Check whether a feature is enabled in a route, controller, helper, component or 
 ```js
   export default Ember.Controller.extend({
     plans: function(){
-      if (this.features.enabled('new-billing-plans'){
+      if (this.features.enabled('new-billing-plans')){
          // Return new plans
       } else {
          // Return old plans
