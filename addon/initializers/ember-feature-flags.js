@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ff from 'ember-feature-flags/helpers/ff';
+import ifFeature from 'ember-feature-flags/helpers/if-feature';
 
 export default {
   name: 'ember-feature-flags',
@@ -11,6 +11,6 @@ export default {
     application.inject('component', 'features', 'features:main');
     application.inject('helper', 'features', 'features:main');
 
-    Ember.Handlebars.registerHelper('ff', ff);
+    Ember.Handlebars.registerHelper('if-feature', ifFeature);
   }
 };

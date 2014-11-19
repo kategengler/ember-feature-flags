@@ -1,6 +1,6 @@
 import features from '../features';
 
-export function ff( value, options ) {
+export function ifFeature( value, options ) {
   var fnTrue = options.fn;
   var fnFalse = options.inverse;
 
@@ -12,4 +12,4 @@ export function ff( value, options ) {
   }
 }
 
-export default ff;
+export default ifFeature;

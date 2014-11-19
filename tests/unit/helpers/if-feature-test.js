@@ -1,6 +1,6 @@
 import {
-  ff
-  } from 'ember-feature-flags/helpers/ff';
+  ifFeature
+  } from 'ember-feature-flags/helpers/if-feature';
 import { withFeature } from 'ember-feature-flags/tests/helpers/with-feature';
 
 module('Feature Flag Helper', {
@@ -25,7 +25,7 @@ test('it calls the true case when feature is on', function() {
     inverse: f
   };
 
-  ff('some-feature', options);
+  ifFeature('some-feature', options);
 });
 
 test('it calls the true case when feature is off', function() {
@@ -43,6 +43,6 @@ test('it calls the true case when feature is off', function() {
     inverse: f
   };
 
-  ff('some-feature', options);
+  ifFeature('some-feature', options);
 });
 

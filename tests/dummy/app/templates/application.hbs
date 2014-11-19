@@ -2,12 +2,12 @@
 
 {{outlet}}
 
-{{#ff 'acceptance-feature'}}
+{{#if-feature 'acceptance-feature'}}
   <div class="acceptance-feature-on"></div>
 {{else}}
   <div class="acceptance-feature-off"></div>
-{{/ff}}
+{{/if-feature}}
 
-{{#ff 'off-feature'}}
+{{#if-feature 'off-feature'}}
   <div class="off-feature-on"></div>
-{{/ff}}
+{{/if-feature}}

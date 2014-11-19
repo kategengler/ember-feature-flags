@@ -31,11 +31,11 @@ Check whether a feature is enabled in a route, controller, helper, component or 
 Check whether a feature is enabled in a template, using the provided `#ff` handlebars helper: 
 
 ```html
-  {{#ff 'new-homepage'}}
+  {{#if-feature 'new-homepage'}}
     {{link-to "new.homepage"}}
   {{else}}
     {{link-to "old.homepage"}}
-  {{/ff}}
+  {{/if-feature}}
 ```
 
 Note that features are not bound, updating `window.Features` will not live-toggle features.
