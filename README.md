@@ -64,6 +64,7 @@ test( "links go to the new homepage", function () {
   andThen(function(){
     equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
   });
+});
 ```
 
 #### `resetFeatureFlags`
