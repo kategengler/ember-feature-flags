@@ -1,4 +1,11 @@
 export default {
+  flags: {},
+  setup: function(flags) {
+    this.flags = flags;
+  },
+  set: function(flag, enabled) {
+    this.flags[flag] = enabled;
+  },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
     if( this.logFeatureFlagMissEnabled && !isEnabled ) {
@@ -7,13 +14,7 @@ export default {
     return isEnabled;
   },
   featureIsEnabled: function( feature ) {
-    if( window.Features === undefined ) {
-      return false;
-    }
-    if( window.Features[ feature ] === undefined ) {
-      return false;
-    }
-    return window.Features[feature ];
+    return !!(this.flags && this.flags[feature]);
   },
   logFeatureFlagMissEnabled: function() {
     return !!window.ENV && !!window.ENV.LOG_FEATURE_FLAG_MISS;

@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import ifFeature from 'ember-feature-flags/helpers/if-feature';
+import features from '../features';
 
 export default {
   name: 'ember-feature-flags',
   initialize: function( container, application ) {
+    features.setup(Ember.merge({}, application.FEATURES));
+
     container.optionsForType('features', { instantiate: false, singleton: true });
     application.inject('route', 'features', 'features:main');
     application.inject('controller', 'features', 'features:main');

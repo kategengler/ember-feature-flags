@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import features from 'ember-feature-flags/features';
 
 export function resetFeatureFlags(){
-  window.Features = {};
+  features.setup({});
 }
 
 Ember.Test.registerHelper( 'resetFeatureFlags', function () {

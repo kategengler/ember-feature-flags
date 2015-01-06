@@ -1,16 +1,22 @@
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
-import { withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import {withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import features from 'ember-feature-flags/features';
 
 var App;
 
 module('Acceptance: Features', {
   setup: function() {
+    features.setup({});
     App = startApp();
   },
   teardown: function() {
     Ember.run(App, 'destroy');
   }
+});
+
+test('features are defined in app config', function() {
+  ok(features.enabled('foo'), 'foo is allowed');
 });
 
 test('visiting / with acceptance-feature on', function() {
