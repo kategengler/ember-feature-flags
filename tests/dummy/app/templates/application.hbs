@@ -8,6 +8,12 @@
   <div class="acceptance-feature-off"></div>
 {{/if-feature}}
 
+{{#if-feature 'feature-from-config'}}
+  <div class="feature-from-config-on"></div>
+{{else}}
+  <div class="feature-from-config-off"></div>
+{{/if-feature}}
+
 {{#if-feature 'off-feature'}}
   <div class="off-feature-on"></div>
 {{/if-feature}}

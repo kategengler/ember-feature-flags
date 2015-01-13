@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import init from 'ember-feature-flags/initializers/ember-feature-flags';
+import features from 'ember-feature-flags/features';
 
 var container, application;
 
@@ -7,7 +8,11 @@ module('EmberFeatureFlagsInitializer', {
   setup: function() {
     Ember.run(function() {
       container = new Ember.Container();
-      application = Ember.Application.create();
+      application = Ember.Application.create({
+        FEATURES: {
+          'feature-from-config': true
+        }
+      });
       application.deferReadiness();
     });
   }
@@ -15,8 +20,7 @@ module('EmberFeatureFlagsInitializer', {
 
 test('it works', function() {
   init.initialize(container, application);
-  // you would normally confirm the results of the initializer here
-  ok(true);
+  ok(features.enabled('feature-from-config'));
 });
 
 test('it injects into all types', function() {

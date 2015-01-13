@@ -16,7 +16,13 @@ module('Acceptance: Features', {
 });
 
 test('features are defined in app config', function() {
-  ok(features.enabled('foo'), 'foo is allowed');
+  ok(features.enabled('feature-from-config'), 'feature-from-config is enabled automatically');
+  visit('/');
+
+  andThen(function() {
+    equal(find('.feature-from-config-on').length, 1, '.feature-from-config-on should be in dom');
+    equal(find('.feature-from-config-off').length, 0, '.feature-from-config-off should not be in dom');
+  });
 });
 
 test('visiting / with acceptance-feature on', function() {

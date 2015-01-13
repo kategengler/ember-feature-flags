@@ -17,7 +17,7 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
       FEATURES: {
-        foo: true
+        'feature-from-config': true
       }
     }
   };
