@@ -32,7 +32,7 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
     "feature-flag",
     "feature-toggle",
     "features-switch"
