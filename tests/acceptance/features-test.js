@@ -32,6 +32,8 @@ test('visiting / with acceptance-feature on', function() {
   andThen(function() {
     equal(find('.acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
     equal(find('.acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
+    equal(find('.bound-acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
+    equal(find('.bound-acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
   });
 });
 

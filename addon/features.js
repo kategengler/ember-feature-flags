@@ -1,10 +1,15 @@
-export default {
-  flags: {},
+import Ember from 'ember';
+
+export default Ember.Object.create({
+  flags: Ember.Object.create(),
   setup: function(flags) {
-    this.flags = flags;
+    this.flags = Ember.Object.create(flags);
   },
-  set: function(flag, enabled) {
-    this.flags[flag] = enabled;
+  enable: function(flag) {
+    this.flags.set(flag, true);
+  },
+  disable: function(flag) {
+    this.flags.set(flag, false);
   },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
@@ -14,7 +19,7 @@ export default {
     return isEnabled;
   },
   featureIsEnabled: function( feature ) {
-    return !!(this.flags && this.flags[feature]);
+    return !!this.flags.get(feature);
   },
   logFeatureFlagMissEnabled: function() {
     return !!window.ENV && !!window.ENV.LOG_FEATURE_FLAG_MISS;
@@ -22,4 +27,4 @@ export default {
   logFeatureFlagMiss: function( feature ) {
     console.info('Feature flag off:', feature);
   }
-};
+});

@@ -5,7 +5,9 @@ import features from '../features';
 export default {
   name: 'ember-feature-flags',
   initialize: function( container, application ) {
-    features.setup(Ember.merge({}, application.FEATURES));
+    if (!Ember.isNone(application.FEATURES)) {
+      features.setup(application.FEATURES);
+    }
 
     container.optionsForType('features', { instantiate: false, singleton: true });
     application.inject('route', 'features', 'features:main');
