@@ -1,16 +1,27 @@
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
-import { withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import {withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import features from 'ember-feature-flags/features';
 
 var App;
 
 module('Acceptance: Features', {
   setup: function() {
+    features.setup({});
     App = startApp();
   },
   teardown: function() {
     Ember.run(App, 'destroy');
   }
+});
+
+test('features are defined in app config', function() {
+  visit('/');
+
+  andThen(function() {
+    equal(find('.feature-from-config-on').length, 1, '.feature-from-config-on should be in dom');
+    equal(find('.feature-from-config-off').length, 0, '.feature-from-config-off should not be in dom');
+  });
 });
 
 test('visiting / with acceptance-feature on', function() {

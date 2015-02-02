@@ -1,6 +1,6 @@
 import {
   test
-  } from 'ember-qunit';
+} from 'ember-qunit';
 import features from 'ember-feature-flags/features';
 
 module('features:main');
@@ -27,19 +27,19 @@ test('logFeatureFlagMissEnabled', function() {
 });
 
 test('featureIsEnabled', function() {
-  var origFeatures = window.Features;
+  var origFeatures = features.flags;
 
-  window.Features = undefined;
+  features.setup(undefined);
   equal(features.featureIsEnabled('some-feature'), false, 'Feature is false if Features is undefined');
 
-  window.Features = {};
+  features.setup({});
   equal(features.featureIsEnabled('some-feature'), false, 'Feature is false if Feature on Features is undefined');
 
-  window.Features = {"some-feature": true};
+  features.setup({"some-feature": true});
   equal(features.featureIsEnabled('some-feature'), true, 'Feature is true if feature is set to true');
 
-  window.Features = {"some-feature": false};
+  features.setup({"some-feature": false});
   equal(features.featureIsEnabled('some-feature'), false, 'Feature is false if feature is set to false');
 
-  window.Features = origFeatures;
+  features.setup(origFeatures);
 });

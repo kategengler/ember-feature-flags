@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="assets/test-support.css">
     <style>
       #ember-testing-container {
-        position: absolute;
+        position: fixed;
         background: white;
         bottom: 0;
         right: 0;
@@ -24,6 +24,9 @@
         overflow: auto;
         z-index: 9999;
         border: 1px solid #ccc;
+      }
+      #qunit {
+        margin-bottom: 400px;
       }
       #ember-testing {
         zoom: 50%;

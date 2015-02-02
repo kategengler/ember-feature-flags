@@ -1,8 +1,8 @@
 import Ember from 'ember';
+import features from 'ember-feature-flags/features';
 
 export function withFeature( featureName ){
-  window.Features = window.Features || {};
-  window.Features[featureName] = true;
+  features.enable(featureName);
 }
 
 Ember.Test.registerHelper( 'withFeature', function ( app, featureName ) {

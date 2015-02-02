@@ -1,11 +1,12 @@
 import {
   ifFeature
-  } from 'ember-feature-flags/helpers/if-feature';
+} from 'ember-feature-flags/helpers/if-feature';
 import { withFeature } from 'ember-feature-flags/tests/helpers/with-feature';
+import features from 'ember-feature-flags/features';
 
 module('Feature Flag Helper', {
   teardown: function() {
-    window.Features = {};
+    features.setup({});
   }
 });
 
