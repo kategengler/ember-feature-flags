@@ -2,18 +2,14 @@
 
 {{outlet}}
 
-{{#if-feature 'acceptance-feature'}}
+{{#if features.acceptanceFeature}}
   <div class="acceptance-feature-on"></div>
 {{else}}
   <div class="acceptance-feature-off"></div>
-{{/if-feature}}
+{{/if}}
 
-{{#if-feature 'feature-from-config'}}
+{{#if features.featureFromConfig}}
   <div class="feature-from-config-on"></div>
 {{else}}
   <div class="feature-from-config-off"></div>
-{{/if-feature}}
-
-{{#if-feature 'off-feature'}}
-  <div class="off-feature-on"></div>
-{{/if-feature}}
+{{/if}}

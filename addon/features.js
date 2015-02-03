@@ -1,15 +1,28 @@
 import Ember from 'ember';
 
+var camelize = Ember.String.camelize;
+
 export default Ember.Object.create({
   flags: Ember.Object.create(),
   setup: function(flags) {
-    this.flags = Ember.Object.create(flags);
+    var normalizedFlags = {};
+    for (var flag in flags) {
+      if( flags.hasOwnProperty( flag ) ) {
+        normalizedFlags[this.normalizeFlag(flag)] = flags[flag];
+      }
+    }
+    this.flags = Ember.Object.create(normalizedFlags);
+  },
+  normalizeFlag: function(flag){
+    return camelize(flag);
   },
   enable: function(flag) {
-    this.flags.set(flag, true);
+    var normalizedFlag = this.normalizeFlag(flag);
+    this.flags.set(normalizedFlag, true);
   },
   disable: function(flag) {
-    this.flags.set(flag, false);
+    var normalizedFlag = this.normalizeFlag(flag);
+    this.flags.set(normalizedFlag, false);
   },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
@@ -19,12 +32,16 @@ export default Ember.Object.create({
     return isEnabled;
   },
   featureIsEnabled: function( feature ) {
-    return !!this.flags.get(feature);
+    var normalizeFeature = this.normalizeFlag(feature);
+    return !!this.flags.get(normalizeFeature);
   },
   logFeatureFlagMissEnabled: function() {
     return !!window.ENV && !!window.ENV.LOG_FEATURE_FLAG_MISS;
   },
   logFeatureFlagMiss: function( feature ) {
     console.info('Feature flag off:', feature);
+  },
+  unknownProperty: function(key) {
+    return this.enabled(key);
   }
 });
