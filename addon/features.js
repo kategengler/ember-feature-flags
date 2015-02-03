@@ -13,7 +13,7 @@ export default Ember.Object.create({
   },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
-    if( this.logFeatureFlagMissEnabled && !isEnabled ) {
+    if( this.logFeatureFlagMissEnabled() && !isEnabled ) {
       this.logFeatureFlagMiss(feature);
     }
     return isEnabled;
