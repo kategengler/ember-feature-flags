@@ -105,7 +105,7 @@ test( "links go to the new homepage", function () {
 ```
 
 #### `resetFeatureFlags`
-Required compliment to `withFeature`, `resetFeatureFlags` resets all feature flags to off, for testing purposes.
+Required complement to `withFeature`, `resetFeatureFlags` resets all feature flags to off, for testing purposes.
 Call `resetFeatureFlags()` before starting the app, or inside of `startApp`:
 
 Import into `helpers/start-app.js`: 
