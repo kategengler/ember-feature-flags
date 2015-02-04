@@ -3,16 +3,20 @@ An ember-cli addon to provide feature flags.
 
 ## To use: 
 
-Provide a global, `window.Features`, with your feature flags and their values:
+This addon injects a property `features` onto your routes, controllers, components and views. 
+
+Call `features.setup` with your feature flags and their values:
 
 ```js
-  window.Features = {
+  // Import to use outside of routes, controllers, components and views.
+  import features from 'ember-feature-flags/features'
+  features.setup({
     "new-billing-plans": true, 
     "new-homepage": false
-  }
+  });
 ```
 
-Any features not included in `window.Features` will be off by default.
+Any features not included in the object passed to `features.setup()` will be off by default.
 
 Check whether a feature is enabled in a route, controller, helper, component or view, by using `this.features.enabled`:
 
@@ -28,17 +32,37 @@ Check whether a feature is enabled in a route, controller, helper, component or 
   });
 ```
 
-Check whether a feature is enabled in a template, using the provided `#ff` handlebars helper: 
+Features are also available as properties of `features`. They are camelized. 
+
+```js
+  export default Ember.Controller.extend({
+    plans: function(){
+      if (this.features.get('newBillingPlans')){
+         // Return new plans
+      } else {
+         // Return old plans
+      }
+    }.property('features.newBillingPlans')
+  });
+```
+
+
+Check whether a feature is enabled in a template, using the bound properties: 
 
 ```html
-  {{#if-feature 'new-homepage'}}
+  {{#if features.newHomepage}}
     {{link-to "new.homepage"}}
   {{else}}
     {{link-to "old.homepage"}}
-  {{/if-feature}}
+  {{/if}}
 ```
 
-Note that features are not bound, updating `window.Features` will not live-toggle features.
+Features are now bound. Use the following api to update them:
+
+```js
+  features.enable('newHomepage');
+  features.disable('newHomepage');
+```
 
 ## Configuration options
 
@@ -46,6 +70,19 @@ Note that features are not bound, updating `window.Features` will not live-toggl
 Will log when a feature flag is queried and found to be off, useful to prevent cursing at the app, 
 wondering why your feature is not working.
 
+
+#### `APP.FEATURES`
+The values of `APP.FEATURES` will set when the addon is initialized. Use *either* this or `features.setup()` to prevent clobbering. 
+
+```js
+   var ENV = {
+       APP: {
+         FEATURES: {
+           'feature-from-config': true
+         }
+       }
+     };
+```
 ## Test Helpers
 
 #### `withFeature`
@@ -105,4 +142,4 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 
 ## Todo
 
-- [ ] Allow setting features a way other than a global
+- [ ] Configure `features` injection

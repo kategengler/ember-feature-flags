@@ -19,10 +19,12 @@ export default Ember.Object.create({
   enable: function(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
     this.flags.set(normalizedFlag, true);
+    this.notifyPropertyChange(normalizedFlag);
   },
   disable: function(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
     this.flags.set(normalizedFlag, false);
+    this.notifyPropertyChange(normalizedFlag);
   },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
@@ -43,5 +45,8 @@ export default Ember.Object.create({
   },
   unknownProperty: function(key) {
     return this.enabled(key);
+  },
+  setUnknownProperty: function() {
+    throw new Error("Please use enable/disable to set feature flags");
   }
 });

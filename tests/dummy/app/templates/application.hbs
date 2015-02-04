@@ -3,13 +3,15 @@
 {{outlet}}
 
 {{#if features.acceptanceFeature}}
-  <div class="acceptance-feature-on"></div>
+  <div class="acceptance-feature-on">ACCEPTANCE FEATURE ON</div>
 {{else}}
-  <div class="acceptance-feature-off"></div>
+  <div class="acceptance-feature-off">ACCEPTANCE FEATURE OFF</div>
 {{/if}}
 
 {{#if features.featureFromConfig}}
-  <div class="feature-from-config-on"></div>
+  <div class="feature-from-config-on">CONFIG FEATURE ON</div>
 {{else}}
-  <div class="feature-from-config-off"></div>
+  <div class="feature-from-config-off">CONFIG FEATURE OFF</div>
 {{/if}}
+
+<a {{action "toggleAcceptanceFeatureOff"}} class="test-turn-acceptance-off">Turn Acceptance Feature off</a>
