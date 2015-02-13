@@ -48,10 +48,15 @@ wondering why your feature is not working.
 
 ## Test Helpers
 
+To use, import into your test-helper.js: `import 'ember-feature-flags/tests/helpers/with-feature';` 
+and add `withFeature` and `withFeatures` to your test `.jshintrc`, they will now be available in all 
+of your tests.
+
+For use in unit tests `import {withFeature, withFeatures} from 'ember-feature-flags/tests/helpers/with-feature';`.
+
 #### `withFeature`
-Turns on a feature for the test in which it is called. 
-To use, import into your test-helper.js: `import 'ember-feature-flags/tests/helpers/with-feature';` and add to your 
-test `.jshintrc`, it will now be available in all of your tests.
+
+Turns on a feature.
 
 Example: 
 
@@ -64,6 +69,22 @@ test( "links go to the new homepage", function () {
   andThen(function(){
     equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
   });
+});
+```
+
+#### `withFeatures`
+
+Turns features on/off using an object hash.
+
+Example: 
+
+```js
+test( "links go to the new homepage", function () {
+  withFeatures({
+    'new-homepage': true,
+    'something-else': false
+  });
+  // the specified features are enabled/disabled
 });
 ```
 
