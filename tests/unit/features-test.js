@@ -43,3 +43,19 @@ test('featureIsEnabled', function() {
 
   features.setup(origFeatures);
 });
+
+test('unknownProperties', function(){
+  features.setup({
+    'some-new-feature': true,
+    'other-newThing': false,
+    'something.other-thing': true
+  });
+
+  equal(true, features.get('someNewFeature'), 'Should be available on features');
+  equal(false, features.get('otherNewThing'), 'Should be available on features');
+  equal(true, features.get('somethingOtherThing'), 'Should be available on features');
+
+  throws(function(){
+    features.set('someNewFeature');
+  }, /use enable/, "Throws an error when setting an unknownProperty");
+});
