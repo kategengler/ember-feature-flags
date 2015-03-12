@@ -26,6 +26,11 @@ export default Ember.Object.create({
     this.flags.set(normalizedFlag, false);
     this.notifyPropertyChange(normalizedFlag);
   },
+  assign: function(flags) {
+    Object.keys(flags).map(function(flag) {
+      flags[flag] ? this.enable(flag) : this.disable(flag);
+    }.bind(this));
+  },
   enabled: function( feature ) {
     var isEnabled = this.featureIsEnabled(feature);
     if( this.logFeatureFlagMissEnabled() && !isEnabled ) {
