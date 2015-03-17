@@ -1,36 +1,51 @@
 import Ember from 'ember';
-import {module, test} from 'qunit';
-import init from 'ember-feature-flags/initializers/ember-feature-flags';
-import features from 'ember-feature-flags/features';
+import { initialize } from '../../../initializers/ember-feature-flags';
+import { module, test } from 'qunit';
+import config from "dummy/config/environment";
 
-var container, application;
+var container, application, oldFeatureFlagsService;
 
 module('EmberFeatureFlagsInitializer', {
   beforeEach: function() {
+    oldFeatureFlagsService = config.featureFlagsService;
     Ember.run(function() {
-      container = new Ember.Container();
-      application = Ember.Application.create({
-        FEATURES: {
-          'feature-from-config': true
-        }
-      });
+      application = Ember.Application.create();
+      container = application.__container__;
       application.deferReadiness();
     });
+  },
+  afterEach: function() {
+    config.featureFlagsService = oldFeatureFlagsService;
   }
 });
 
-test('it works', function(assert) {
-  init.initialize(container, application);
-  assert.ok(features.enabled('feature-from-config'));
+test('service is registered', function(assert) {
+  initialize(container, application);
+  var service = container.lookup('features:-main');
+  assert.ok(service, 'service is registered');
 });
 
-test('it injects into all types', function(assert) {
-  assert.expect(5);
-  var types = ['route', 'controller', 'view', 'component', 'helper'];
-  var fakeApp = {};
-  fakeApp.inject = function( type ) {
-    assert.ok(types.indexOf(type) !== -1, type + ' should be in list');
-  };
-  init.initialize(container, fakeApp);
+test('service has application injected', function(assert) {
+  initialize(container, application);
+  var service = container.lookup('features:-main');
+  assert.ok(service.application, 'service has application');
 });
 
+['route', 'controller', 'component'].forEach(function(type){
+  test(type+' has service injected', function(assert) {
+    initialize(container, application);
+    container.register(type+':main', Ember.Object.extend());
+    var instance = container.lookup(type+':main');
+    assert.ok(instance.features, 'service is injected');
+  });
+});
+
+['route', 'controller', 'component'].forEach(function(type){
+  test(type+' has service injected with custom name', function(assert) {
+    config.featureFlagsService = 'wackyWhoop';
+    initialize(container, application);
+    container.register(type+':main', Ember.Object.extend());
+    var instance = container.lookup(type+':main');
+    assert.ok(instance.wackyWhoop, 'service is injected');
+  });
+});

@@ -7,7 +7,6 @@ import {resetFeatureFlags} from 'ember-feature-flags/tests/helpers/reset-feature
 export default function startApp(attrs) {
   var application;
 
-  resetFeatureFlags();
 
   var attributes = Ember.merge({}, config.APP);
   attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;

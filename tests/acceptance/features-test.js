@@ -2,19 +2,48 @@ import Ember from 'ember';
 import {module, test} from 'qunit';
 import startApp from '../helpers/start-app';
 import {withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import config from "dummy/config/environment";
 
-var App;
+var App, oldDeprecate, oldFeatureFlags;
 
 module('Acceptance: Features', {
   beforeEach: function() {
-    App = startApp();
+    oldDeprecate = Ember.deprecate;
+    oldFeatureFlags = config.featureFlags;
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
+    Ember.deprecate = oldDeprecate;
+    config.featureFlags = oldFeatureFlags;
   }
 });
 
-test('features are defined in app config', function(assert) {
+test('features are defined in config on featureFlags', function(assert) {
+  assert.expect(2);
+  config.featureFlags = {
+    'feature-from-config': true
+  };
+  App = startApp();
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find('.feature-from-config-on').length, 1, '.feature-from-config-on should be in dom');
+    assert.equal(find('.feature-from-config-off').length, 0, '.feature-from-config-off should not be in dom');
+  });
+});
+
+test('features are defined in app config [DEPRECATED]', function(assert) {
+  assert.expect(3);
+  App = startApp({
+    FEATURES: {
+      'featureFromConfig': true
+    }
+  });
+  Ember.deprecate = function(message){
+    if (message === '[ember-feature-flags] Setting feature flags via `APP.FEATURES` is deprecated and will be removed.') {
+      assert.ok(true, 'deprecation called');
+    }
+  };
   visit('/');
 
   andThen(function() {
@@ -24,7 +53,8 @@ test('features are defined in app config', function(assert) {
 });
 
 test('visiting / with acceptance-feature on', function(assert) {
-  withFeature('acceptance-feature');
+  App = startApp();
+  withFeature(App, 'acceptance-feature');
   visit('/');
 
   andThen(function() {
@@ -41,6 +71,7 @@ test('visiting / with acceptance-feature on', function(assert) {
 });
 
 test('visiting / with no features set', function(assert) {
+  App = startApp();
   visit('/');
 
   andThen(function() {

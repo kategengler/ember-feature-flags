@@ -1,10 +1,8 @@
 import Ember from 'ember';
-import features from 'ember-feature-flags/features';
 
-export function withFeature( featureName ){
-  features.enable(featureName);
+export function withFeature ( app, featureName ) {
+  var featuresService = app.__container__.lookup('features:-main');
+  featuresService.enable(featureName);
 }
 
-Ember.Test.registerHelper( 'withFeature', function ( app, featureName ) {
-  withFeature( featureName );
-});
+Ember.Test.registerHelper( 'withFeature', withFeature );

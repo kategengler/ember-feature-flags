@@ -2,51 +2,74 @@ import Ember from 'ember';
 
 var camelize = Ember.String.camelize;
 
-export default Ember.Object.create({
-  flags: Ember.Object.create(),
+export default Ember.Object.extend({
+
+  init: function(){
+    this._super.apply(this, arguments);
+    this._flags = Ember.create(null);
+
+    this.setUnknownProperty = function(key) {
+      throw new Error("Please use enable/disable to set feature flags. You attempted to set "+key);
+    };
+  },
+
   setup: function(flags) {
-    var normalizedFlags = {};
+    var normalizedFlags = Ember.create(null);
     for (var flag in flags) {
       if( flags.hasOwnProperty( flag ) ) {
-        normalizedFlags[this.normalizeFlag(flag)] = flags[flag];
+        // Use !! to ensure the properties are all booleans.
+        normalizedFlags[this.normalizeFlag(flag)] = !!flags[flag];
       }
     }
-    this.flags = Ember.Object.create(normalizedFlags);
+    this._flags = normalizedFlags;
   },
+
   normalizeFlag: function(flag){
     return camelize(flag);
   },
+
   enable: function(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
-    this.flags.set(normalizedFlag, true);
+    this._flags[normalizedFlag] = true;
     this.notifyPropertyChange(normalizedFlag);
   },
+
   disable: function(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
-    this.flags.set(normalizedFlag, false);
+    this._flags[normalizedFlag] = false;
     this.notifyPropertyChange(normalizedFlag);
   },
+
   enabled: function( feature ) {
-    var isEnabled = this.featureIsEnabled(feature);
+    Ember.deprecate('[ember-feature-flags] enabled has been deprecated in favor of isEnabled');
+    return this.isEnabled(feature);
+  },
+
+  isEnabled: function( feature ) {
+    var isEnabled = this._featureIsEnabled(feature);
     if( this.logFeatureFlagMissEnabled() && !isEnabled ) {
       this.logFeatureFlagMiss(feature);
     }
     return isEnabled;
   },
-  featureIsEnabled: function( feature ) {
+
+  _featureIsEnabled: function( feature ) {
     var normalizeFeature = this.normalizeFlag(feature);
-    return !!this.flags.get(normalizeFeature);
+    return this._flags[normalizeFeature] || false;
   },
+
   logFeatureFlagMissEnabled: function() {
     return !!window.ENV && !!window.ENV.LOG_FEATURE_FLAG_MISS;
   },
+
   logFeatureFlagMiss: function( feature ) {
-    console.info('Feature flag off:', feature);
+    if( console && console.info ) {
+      console.info('Feature flag off:', feature);
+    }
   },
+
   unknownProperty: function(key) {
-    return this.enabled(key);
-  },
-  setUnknownProperty: function() {
-    throw new Error("Please use enable/disable to set feature flags");
+    return this.isEnabled(key);
   }
+
 });
