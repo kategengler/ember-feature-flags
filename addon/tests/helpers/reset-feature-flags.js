@@ -1,10 +1,9 @@
 import Ember from 'ember';
-import features from 'ember-feature-flags/features';
 
-export function resetFeatureFlags(){
-  features.setup({});
+export function resetFeatureFlags (app) {
+  Ember.deprecate('[ember-feature-flags] resetFeatureFlags is no longer needed before each test execution, and will be removed');
+  var featuresService = app.__container__.lookup('features:-main');
+  featuresService.setup({});
 }
 
-Ember.Test.registerHelper( 'resetFeatureFlags', function () {
-  resetFeatureFlags();
-});
+Ember.Test.registerHelper( 'resetFeatureFlags', resetFeatureFlags );
