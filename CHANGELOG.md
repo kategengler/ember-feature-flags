@@ -1,3 +1,10 @@
+#v1.0.0
+- 1.0 because its been used in production for months and we're making changes with nice deprecations
+- `resetFeatureFlags` is no longer necessary to reset flags between tests; flags are not shared between app instances anymore
+- `enabled` renamed to `isEnabled`
+- Flags should now be set via the `featureFlags` key in the config, rather than `APP.FEATURES`
+- The service name can now be customized using `featureFlagsService` config 
+
 #v0.0.4
 - Upgrade to ember-cli 0.0.2
 
