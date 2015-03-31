@@ -7,9 +7,21 @@ module.exports = {
       }
     },
     {
-      name: "Ember 1.11.0-beta.5",
+      name: "Ember 1.11.0",
       dependencies: {
-        "ember": "1.11.0-beta.5"
+        "ember": "1.11.0"
+      }
+    },
+    {
+      name: "Ember canary",
+      dependencies: {
+        "ember": "canary"
+      }
+    },
+    {
+      name: "Ember beta",
+      dependencies: {
+        "ember": "beta"
       }
     }
   ]
