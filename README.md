@@ -136,6 +136,28 @@ test( "links go to the new homepage", function () {
 });
 ```
 
+#### `withoutFeature`
+
+Turns off a feature for the test in which it is called.
+To use, import into your test-helper.js: `import 'ember-feature-flags/tests/helpers/without-feature'` and add to your 
+test `.jshintrc`, it will now be available in all of your tests.
+
+Example:
+
+```js
+import 'ember-feature-flags/tests/helpers/without-feature';
+
+test( "links do NOT go to the new homepage", function () {
+  withoutFeature( 'new-homepage' );
+
+  visit('/');
+  click('a.home');
+  andThen(function(){
+    notEqual(currentRoute(), 'new.homepage', 'Should not be on the new homepage');
+  });
+});
+```
+
 ### Development
 
 #### Installation
