@@ -123,8 +123,11 @@ test `.jshintrc`, it will now be available in all of your tests.
 Example:
 
 ```js
+
+// this goes in test-helper.js
 import 'ember-feature-flags/tests/helpers/with-feature';
 
+// this goes in your test files
 test( "links go to the new homepage", function () {
   withFeature( 'new-homepage' );
 
