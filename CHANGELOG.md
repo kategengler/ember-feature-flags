@@ -1,3 +1,6 @@
+#v1.1.0
+- Upgrade ember-cli
+
 #v1.0.0
 - 1.0 because its been used in production for months and we're making changes with nice deprecations
 - `resetFeatureFlags` is no longer necessary to reset flags between tests; flags are not shared between app instances anymore
