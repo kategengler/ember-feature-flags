@@ -6,7 +6,7 @@ export default Ember.Object.extend({
 
   init: function(){
     this._super.apply(this, arguments);
-    this._flags = Ember.create(null);
+    this._flags = Object.create(null);
 
     this.setUnknownProperty = function(key) {
       throw new Error("Please use enable/disable to set feature flags. You attempted to set "+key);
@@ -14,7 +14,7 @@ export default Ember.Object.extend({
   },
 
   setup: function(flags) {
-    var normalizedFlags = Ember.create(null);
+    var normalizedFlags = Object.create(null);
     for (var flag in flags) {
       if( flags.hasOwnProperty( flag ) ) {
         // Use !! to ensure the properties are all booleans.
