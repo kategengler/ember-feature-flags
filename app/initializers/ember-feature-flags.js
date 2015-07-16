@@ -1,7 +1,7 @@
 import config from '../config/environment';
 import Features from '../features/-main';
 
-export function initialize( container, application ) {
+export function initialize( registry, application ) {
   var serviceName = config.featureFlagsService || 'features';
   application.register('features:-main', Features);
   application.inject('route', serviceName, 'features:-main');
