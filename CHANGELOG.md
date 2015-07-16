@@ -1,3 +1,8 @@
+#v2.0.0
+- Breaking: Upgraded ember-cli and ember to 1.13 series, tests no longer pass against ember 1.11 and so compatibility is now >=1.12.0. 
+  Suspect the addon will still work under 1.11 and that the failures are due to ember-cli interactions.
+- Eliminate deprecations in app and test suite
+
 #v1.1.0
 - Upgrade ember-cli
 
