@@ -6,7 +6,7 @@ An ember-cli addon to provide feature flags.
 ### Installation
 
 ```
-ember install:addon ember-feature-flags
+ember install ember-feature-flags
 ```
 
 ### Usage
