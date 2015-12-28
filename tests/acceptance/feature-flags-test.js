@@ -55,3 +55,21 @@ test('visiting / with no features set', function(assert) {
     assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
   });
 });
+
+test('visiting / with acceptance-feature on and calling setup properly updates flags', function(assert) {
+  App = startApp();
+  withFeature(App, 'acceptance-feature');
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find('.acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
+    assert.equal(find('.acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
+  });
+
+  click('.test-turn-acceptance-setup-off');
+
+  andThen(function(){
+    assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
+    assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
+  });
+});
