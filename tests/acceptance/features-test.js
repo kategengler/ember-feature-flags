@@ -2,6 +2,7 @@ import Ember from 'ember';
 import {module, test} from 'qunit';
 import startApp from '../helpers/start-app';
 import {withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import {withoutFeature} from 'ember-feature-flags/tests/helpers/without-feature';
 import config from "dummy/config/environment";
 
 var App, oldDeprecate, oldFeatureFlags;
@@ -77,5 +78,24 @@ test('visiting / with no features set', function(assert) {
   andThen(function() {
     assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
     assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
+  });
+});
+
+test('using withFeature and withoutFeature to toggle acceptance-feature on/off', function(assert) {
+  App = startApp();
+  withFeature(App, 'acceptance-feature');
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find('.acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
+    assert.equal(find('.acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
+
+    // Now turn the feature off and revist the page
+    withoutFeature(App, 'acceptance-feature');
+      visit('/');
+      andThen(function(){
+        assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
+        assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
+      });
   });
 });
