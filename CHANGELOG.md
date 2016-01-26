@@ -1,3 +1,8 @@
+#v2.0.1
+- Fix deprecations that started with Ember 2.1 (Thanks @Arkham)
+- Upgrade ember-cli
+- Test against Ember 1.12 -> canary
+
 #v2.0.0
 - Breaking: Upgraded ember-cli and ember to 1.13 series, tests no longer pass against ember 1.11 and so compatibility is now >=1.12.0. 
   Suspect the addon will still work under 1.11 and that the failures are due to ember-cli interactions.
