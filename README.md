@@ -141,6 +141,8 @@ test( "links go to the new homepage", function () {
 If you use `this.features.isEnabled()` in components under integration test, you will need to inject a stub service in your tests. Using ember-qunit 0.4.16 or later, here's how to do this:
 
 ```js
+const { getOwner } = Ember;
+
 let featuresService = Ember.Service.extend({
   isEnabled() {
     return false;
@@ -151,10 +153,12 @@ moduleForComponent('my-component', 'Integration | Component | my component', {
   integration: true,
   beforeEach() {
     this.register('service:features', featuresService);
-    this.container.injection('component', 'features', 'service:features');
+    getOwner(this).inject('component', 'features', 'service:features');
   }
 });
 ```
+
+Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill).
 
 ### Development
 
