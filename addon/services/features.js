@@ -14,16 +14,16 @@ export default Ember.Service.extend({
   },
 
   setup(flags) {
-    let normalizedFlags = Object.create(null);
+    this._resetFlags();
     for (let flag in flags) {
       if (flags.hasOwnProperty(flag)) {
-        let normalizedFlag = this.normalizeFlag(flag);
-        // Use !! to ensure the properties are all booleans.
-        normalizedFlags[normalizedFlag] = !!flags[flag];
-        this.notifyPropertyChange(normalizedFlag);
+        if (!!flags[flag]) {
+          this.enable(flag);
+        } else {
+          this.disable(flag);
+        }
       }
     }
-    this._flags = normalizedFlags;
   },
 
   normalizeFlag(flag) {
@@ -48,6 +48,10 @@ export default Ember.Service.extend({
       this.logFeatureFlagMiss(feature);
     }
     return isEnabled;
+  },
+
+  _resetFlags() {
+    this._flags = Object.create(null);
   },
 
   _featureIsEnabled(feature) {
