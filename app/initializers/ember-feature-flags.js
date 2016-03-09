@@ -2,9 +2,9 @@ import config from '../config/environment';
 import Features from '../services/features';
 
 export function initialize() {
-  var application = arguments[1] || arguments[0];
-  var serviceName = config.featureFlagsService || 'features';
-  var serviceLookupName = 'service:' + serviceName;
+  let application = arguments[1] || arguments[0];
+  let serviceName = config.featureFlagsService || 'features';
+  let serviceLookupName = `service:${serviceName}`;
 
   application.register(serviceLookupName, Features);
   application.inject('route', serviceName, serviceLookupName);
@@ -15,5 +15,5 @@ export function initialize() {
 
 export default {
   name: 'ember-feature-flags',
-  initialize: initialize
+  initialize
 };

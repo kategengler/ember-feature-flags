@@ -5,13 +5,13 @@ export default function(name, options = {}) {
   module(name, {
     beforeEach() {
       if (options.beforeEach) {
-        options.beforeEach.apply(this, arguments);
+        options.beforeEach(...arguments);
       }
     },
 
     afterEach() {
       if (options.afterEach) {
-        options.afterEach.apply(this, arguments);
+        options.afterEach(...arguments);
       }
 
       destroyApp(this.application);

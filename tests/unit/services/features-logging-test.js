@@ -1,7 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
-import config from "dummy/config/environment";
+import config from 'dummy/config/environment';
 
-var origConfig;
+let origConfig;
 
 moduleFor('service:features', 'Unit | Service | features - logging', {
   // Specify the other units that are required for this test.

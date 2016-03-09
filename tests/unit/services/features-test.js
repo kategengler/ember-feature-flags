@@ -1,7 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from "ember";
+import Ember from 'ember';
 
-var originalDeprecate;
+let originalDeprecate;
 
 moduleFor('service:features', 'Unit | Service | features', {
   // Specify the other units that are required for this test.
@@ -22,17 +22,17 @@ test('isEnabled', function(assert) {
   features.setup({});
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if Feature on Features is undefined');
 
-  features.setup({"some-feature": true});
+  features.setup({ 'some-feature': true });
   assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
 
-  features.setup({"some-feature": false});
+  features.setup({ 'some-feature': false });
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
 });
 
 test('enabled [DEPRECATED]', function(assert) {
   assert.expect(2);
   let features = this.subject();
-  Ember.deprecate = function(){
+  Ember.deprecate = function() {
     assert.ok(true, 'deprecation called');
   };
   features.setup(undefined);
@@ -52,7 +52,7 @@ test('unknownProperties', function(assert) {
   assert.equal(false, features.get('otherNewThing'), 'Should be available on features');
   assert.equal(true, features.get('somethingOtherThing'), 'Should be available on features');
 
-  assert.throws(function(){
+  assert.throws(function() {
     features.set('someNewFeature');
-  }, /use enable/, "Throws an error when setting an unknownProperty");
+  }, /use enable/, 'Throws an error when setting an unknownProperty');
 });

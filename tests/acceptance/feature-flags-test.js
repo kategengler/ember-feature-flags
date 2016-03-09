@@ -2,9 +2,9 @@ import Ember from 'ember';
 import { test } from 'qunit';
 import startApp from '../helpers/start-app';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import config from "dummy/config/environment";
+import config from 'dummy/config/environment';
 
-var oldDeprecate, oldFeatureFlags;
+let oldDeprecate, oldFeatureFlags;
 
 moduleForAcceptance('Acceptance | feature flags', {
   beforeEach() {
@@ -38,7 +38,7 @@ test('features are defined in app config [DEPRECATED]', function(assert) {
       'featureFromConfig': true
     }
   });
-  Ember.deprecate = function(message){
+  Ember.deprecate = function(message) {
     if (message === '[ember-feature-flags] Setting feature flags via `APP.FEATURES` is deprecated and will be removed.') {
       assert.ok(true, 'deprecation called');
     }
@@ -63,7 +63,7 @@ test('visiting / with acceptance-feature on', function(assert) {
 
   click('.test-turn-acceptance-off');
 
-  andThen(function(){
+  andThen(function() {
     assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
     assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
   });
