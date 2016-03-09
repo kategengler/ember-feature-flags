@@ -7,11 +7,11 @@ import config from "dummy/config/environment";
 var oldDeprecate, oldFeatureFlags;
 
 moduleForAcceptance('Acceptance | feature flags', {
-  beforeEach: function() {
+  beforeEach() {
     oldDeprecate = Ember.deprecate;
     oldFeatureFlags = config.featureFlags;
   },
-  afterEach: function() {
+  afterEach() {
     Ember.deprecate = oldDeprecate;
     config.featureFlags = oldFeatureFlags;
   }

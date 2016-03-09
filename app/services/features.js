@@ -3,7 +3,7 @@ import config from "../config/environment";
 
 export default Features.extend({
   config,
-  init: function(){
+  init() {
     this._super.apply(this, arguments);
 
     if (this.application && !Ember.isNone(this.application.FEATURES)) {

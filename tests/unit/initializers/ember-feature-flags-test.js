@@ -6,7 +6,7 @@ import config from "dummy/config/environment";
 var registry, container, application, oldFeatureFlagsService;
 
 module('EmberFeatureFlagsInitializer', {
-  beforeEach: function() {
+  beforeEach() {
     oldFeatureFlagsService = config.featureFlagsService;
     Ember.run(function() {
       application = Ember.Application.create();
@@ -15,7 +15,7 @@ module('EmberFeatureFlagsInitializer', {
       application.deferReadiness();
     });
   },
-  afterEach: function() {
+  afterEach() {
     config.featureFlagsService = oldFeatureFlagsService;
   }
 });

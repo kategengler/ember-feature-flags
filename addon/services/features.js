@@ -4,7 +4,7 @@ var camelize = Ember.String.camelize;
 
 export default Ember.Service.extend({
 
-  init: function(){
+  init() {
     this._super.apply(this, arguments);
     this._flags = Object.create(null);
 
@@ -13,7 +13,7 @@ export default Ember.Service.extend({
     };
   },
 
-  setup: function(flags) {
+  setup(flags) {
     var normalizedFlags = Object.create(null);
     for (var flag in flags) {
       if( flags.hasOwnProperty( flag ) ) {
@@ -24,28 +24,28 @@ export default Ember.Service.extend({
     this._flags = normalizedFlags;
   },
 
-  normalizeFlag: function(flag){
+  normalizeFlag(flag) {
     return camelize(flag);
   },
 
-  enable: function(flag) {
+  enable(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
     this._flags[normalizedFlag] = true;
     this.notifyPropertyChange(normalizedFlag);
   },
 
-  disable: function(flag) {
+  disable(flag) {
     var normalizedFlag = this.normalizeFlag(flag);
     this._flags[normalizedFlag] = false;
     this.notifyPropertyChange(normalizedFlag);
   },
 
-  enabled: function( feature ) {
+  enabled(feature) {
     Ember.deprecate('[ember-feature-flags] enabled has been deprecated in favor of isEnabled');
     return this.isEnabled(feature);
   },
 
-  isEnabled: function( feature ) {
+  isEnabled(feature) {
     var isEnabled = this._featureIsEnabled(feature);
     if( this.logFeatureFlagMissEnabled() && !isEnabled ) {
       this.logFeatureFlagMiss(feature);
@@ -53,22 +53,22 @@ export default Ember.Service.extend({
     return isEnabled;
   },
 
-  _featureIsEnabled: function( feature ) {
+  _featureIsEnabled(feature) {
     var normalizeFeature = this.normalizeFlag(feature);
     return this._flags[normalizeFeature] || false;
   },
 
-  logFeatureFlagMissEnabled: function() {
+  logFeatureFlagMissEnabled() {
     return !!this.get('config.LOG_FEATURE_FLAG_MISS');
   },
 
-  logFeatureFlagMiss: function( feature ) {
+  logFeatureFlagMiss(feature) {
     if( console && console.info ) {
       console.info('Feature flag off:', feature);
     }
   },
 
-  unknownProperty: function(key) {
+  unknownProperty(key) {
     return this.isEnabled(key);
   }
 
