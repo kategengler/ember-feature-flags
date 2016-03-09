@@ -1,15 +1,16 @@
 import { moduleFor, test } from 'ember-qunit';
+import config from "dummy/config/environment";
 
-var origEnv;
+var origConfig;
 
 moduleFor('service:features', 'Unit | Service | features - logging', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
   beforeEach() {
-    origEnv = window.ENV;
+    origConfig = config.LOG_FEATURE_FLAG_MISS;
   },
   afterEach() {
-    window.ENV = origEnv;
+    config.LOG_FEATURE_FLAG_MISS = origConfig;
   }
 });
 
@@ -20,15 +21,15 @@ test('logFeatureFlagMissEnabled is false by default', function(assert) {
 });
 
 test('logFeatureFlagMissEnabled is true when LOG_FEATURE_FLAG_MISS true', function(assert) {
+  config.LOG_FEATURE_FLAG_MISS = true;
   let features = this.subject();
-  window.ENV = {LOG_FEATURE_FLAG_MISS: true};
   assert.equal(features.logFeatureFlagMissEnabled(), true,
     'Logging should be enabled with LOG_FEATURE_FLAG_MISS set to true');
 });
 
 test('logFeatureFlagMissEnabled is false when LOG_FEATURE_FLAG_MISS false', function(assert) {
+  config.LOG_FEATURE_FLAG_MISS = false;
   let features = this.subject();
-  window.ENV = {LOG_FEATURE_FLAG_MISS: false};
   assert.equal(features.logFeatureFlagMissEnabled(), false,
     'Logging should be disabled with LOG_FEATURE_FLAG_MISS set to false');
 });

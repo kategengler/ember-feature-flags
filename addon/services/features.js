@@ -59,7 +59,7 @@ export default Ember.Service.extend({
   },
 
   logFeatureFlagMissEnabled: function() {
-    return !!window.ENV && !!window.ENV.LOG_FEATURE_FLAG_MISS;
+    return !!this.get('config.LOG_FEATURE_FLAG_MISS');
   },
 
   logFeatureFlagMiss: function( feature ) {

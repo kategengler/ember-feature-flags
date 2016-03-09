@@ -2,7 +2,7 @@ import Features from "ember-feature-flags/services/features";
 import config from "../config/environment";
 
 export default Features.extend({
-
+  config,
   init: function(){
     this._super.apply(this, arguments);
 
