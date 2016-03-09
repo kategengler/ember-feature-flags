@@ -1,17 +1,8 @@
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
-
-let originalDeprecate;
 
 moduleFor('service:features', 'Unit | Service | features', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
-  beforeEach() {
-    originalDeprecate = Ember.deprecate;
-  },
-  afterEach() {
-    Ember.deprecate = originalDeprecate;
-  }
 });
 
 test('isEnabled', function(assert) {
@@ -27,16 +18,6 @@ test('isEnabled', function(assert) {
 
   features.setup({ 'some-feature': false });
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
-});
-
-test('enabled [DEPRECATED]', function(assert) {
-  assert.expect(2);
-  let features = this.subject();
-  Ember.deprecate = function() {
-    assert.ok(true, 'deprecation called');
-  };
-  features.setup(undefined);
-  assert.equal(features.enabled('some-feature'), false, 'Feature is false if Features is undefined');
 });
 
 test('unknownProperties', function(assert) {

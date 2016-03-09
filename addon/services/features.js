@@ -40,11 +40,6 @@ export default Ember.Service.extend({
     this.notifyPropertyChange(normalizedFlag);
   },
 
-  enabled(feature) {
-    Ember.deprecate('[ember-feature-flags] enabled has been deprecated in favor of isEnabled');
-    return this.isEnabled(feature);
-  },
-
   isEnabled(feature) {
     let isEnabled = this._featureIsEnabled(feature);
     if (this.logFeatureFlagMissEnabled() && !isEnabled) {

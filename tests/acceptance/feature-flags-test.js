@@ -1,18 +1,15 @@
-import Ember from 'ember';
 import { test } from 'qunit';
 import startApp from '../helpers/start-app';
 import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import config from 'dummy/config/environment';
 
-let oldDeprecate, oldFeatureFlags;
+let oldFeatureFlags;
 
 moduleForAcceptance('Acceptance | feature flags', {
   beforeEach() {
-    oldDeprecate = Ember.deprecate;
     oldFeatureFlags = config.featureFlags;
   },
   afterEach() {
-    Ember.deprecate = oldDeprecate;
     config.featureFlags = oldFeatureFlags;
   }
 });
@@ -23,26 +20,6 @@ test('features are defined in config on featureFlags', function(assert) {
     'feature-from-config': true
   };
   this.application = startApp();
-  visit('/');
-
-  andThen(function() {
-    assert.equal(find('.feature-from-config-on').length, 1, '.feature-from-config-on should be in dom');
-    assert.equal(find('.feature-from-config-off').length, 0, '.feature-from-config-off should not be in dom');
-  });
-});
-
-test('features are defined in app config [DEPRECATED]', function(assert) {
-  assert.expect(3);
-  this.application = startApp({
-    FEATURES: {
-      'featureFromConfig': true
-    }
-  });
-  Ember.deprecate = function(message) {
-    if (message === '[ember-feature-flags] Setting feature flags via `APP.FEATURES` is deprecated and will be removed.') {
-      assert.ok(true, 'deprecation called');
-    }
-  };
   visit('/');
 
   andThen(function() {
