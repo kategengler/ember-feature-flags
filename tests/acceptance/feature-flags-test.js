@@ -57,8 +57,8 @@ test('visiting / with no features set', function(assert) {
 });
 
 test('visiting / with acceptance-feature on and calling setup properly updates flags', function(assert) {
-  App = startApp();
-  withFeature(App, 'acceptance-feature');
+  this.application = startApp();
+  withFeature('acceptance-feature');
   visit('/');
 
   andThen(function() {
@@ -68,7 +68,7 @@ test('visiting / with acceptance-feature on and calling setup properly updates f
 
   click('.test-turn-acceptance-setup-off');
 
-  andThen(function(){
+  andThen(function() {
     assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
     assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
   });

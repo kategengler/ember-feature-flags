@@ -5,10 +5,10 @@ export default Ember.Route.extend({
     toggleAcceptanceFeatureOff() {
       this.features.disable('acceptance-feature');
     },
-    toggleAcceptanceFeatureSetupOff: function(){
+    toggleAcceptanceFeatureSetupOff() {
       this.features.setup({
-		 "acceptance-feature": false
-	  });
+        'acceptance-feature': false
+      });
     }
   }
 });

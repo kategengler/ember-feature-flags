@@ -17,8 +17,10 @@ export default Ember.Service.extend({
     let normalizedFlags = Object.create(null);
     for (let flag in flags) {
       if (flags.hasOwnProperty(flag)) {
+        let normalizedFlag = this.normalizeFlag(flag);
         // Use !! to ensure the properties are all booleans.
-        normalizedFlags[this.normalizeFlag(flag)] = !!flags[flag];
+        normalizedFlags[normalizedFlag] = !!flags[flag];
+        this.notifyPropertyChange(normalizedFlag);
       }
     }
     this._flags = normalizedFlags;
