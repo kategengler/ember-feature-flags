@@ -1,25 +1,21 @@
-import {
-  test, module
-} from 'qunit';
-import Features from 'ember-feature-flags/features';
+import { moduleFor, test } from 'ember-qunit';
 import Ember from "ember";
 
-var features, oldDeprecate;
+var originalDeprecate;
 
-module('Features', {
-  setup: function(){
-    oldDeprecate = Ember.deprecate;
-    features = Features.create();
+moduleFor('service:features', 'Unit | Service | features', {
+  // Specify the other units that are required for this test.
+  // needs: ['service:foo']
+  beforeEach() {
+    originalDeprecate = Ember.deprecate;
   },
-  teardown: function(){
-    if (features) {
-      Ember.run(features, 'destroy');
-    }
-    Ember.deprecate = oldDeprecate;
+  afterEach() {
+    Ember.deprecate = originalDeprecate;
   }
 });
 
 test('isEnabled', function(assert) {
+  let features = this.subject();
   features.setup(undefined);
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if Features is undefined');
 
@@ -35,6 +31,7 @@ test('isEnabled', function(assert) {
 
 test('enabled [DEPRECATED]', function(assert) {
   assert.expect(2);
+  let features = this.subject();
   Ember.deprecate = function(){
     assert.ok(true, 'deprecation called');
   };
@@ -43,6 +40,8 @@ test('enabled [DEPRECATED]', function(assert) {
 });
 
 test('unknownProperties', function(assert) {
+  let features = this.subject();
+
   features.setup({
     'some-new-feature': true,
     'other-newThing': false,

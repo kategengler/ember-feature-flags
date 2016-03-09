@@ -1,15 +1,16 @@
 import config from '../config/environment';
-import Features from '../features/-main';
+import Features from '../services/features';
 
 export function initialize() {
   var application = arguments[1] || arguments[0];
   var serviceName = config.featureFlagsService || 'features';
+  var serviceLookupName = 'service:' + serviceName;
 
-  application.register('features:-main', Features);
-  application.inject('route', serviceName, 'features:-main');
-  application.inject('controller', serviceName, 'features:-main');
-  application.inject('component', serviceName, 'features:-main');
-  application.inject('features:-main', 'application', 'application:main');
+  application.register(serviceLookupName, Features);
+  application.inject('route', serviceName, serviceLookupName);
+  application.inject('controller', serviceName, serviceLookupName);
+  application.inject('component', serviceName, serviceLookupName);
+  application.inject(serviceLookupName, 'application', 'application:main');
 }
 
 export default {

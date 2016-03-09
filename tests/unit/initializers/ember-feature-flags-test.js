@@ -22,13 +22,13 @@ module('EmberFeatureFlagsInitializer', {
 
 test('service is registered', function(assert) {
   initialize(registry, application);
-  var service = container.lookup('features:-main');
+  var service = container.lookup('service:features');
   assert.ok(service, 'service is registered');
 });
 
 test('service has application injected', function(assert) {
   initialize(registry, application);
-  var service = container.lookup('features:-main');
+  var service = container.lookup('service:features');
   assert.ok(service.application, 'service has application');
 });
 

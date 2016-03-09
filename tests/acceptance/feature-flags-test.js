@@ -1,18 +1,17 @@
 import Ember from 'ember';
-import {module, test} from 'qunit';
+import { test } from 'qunit';
 import startApp from '../helpers/start-app';
-import {withFeature} from 'ember-feature-flags/tests/helpers/with-feature';
+import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
 import config from "dummy/config/environment";
 
-var App, oldDeprecate, oldFeatureFlags;
+var oldDeprecate, oldFeatureFlags;
 
-module('Acceptance: Features', {
+moduleForAcceptance('Acceptance | feature flags', {
   beforeEach: function() {
     oldDeprecate = Ember.deprecate;
     oldFeatureFlags = config.featureFlags;
   },
   afterEach: function() {
-    Ember.run(App, 'destroy');
     Ember.deprecate = oldDeprecate;
     config.featureFlags = oldFeatureFlags;
   }
@@ -23,7 +22,7 @@ test('features are defined in config on featureFlags', function(assert) {
   config.featureFlags = {
     'feature-from-config': true
   };
-  App = startApp();
+  this.application = startApp();
   visit('/');
 
   andThen(function() {
@@ -34,7 +33,7 @@ test('features are defined in config on featureFlags', function(assert) {
 
 test('features are defined in app config [DEPRECATED]', function(assert) {
   assert.expect(3);
-  App = startApp({
+  this.application = startApp({
     FEATURES: {
       'featureFromConfig': true
     }
@@ -53,8 +52,8 @@ test('features are defined in app config [DEPRECATED]', function(assert) {
 });
 
 test('visiting / with acceptance-feature on', function(assert) {
-  App = startApp();
-  withFeature(App, 'acceptance-feature');
+  this.application = startApp();
+  withFeature('acceptance-feature');
   visit('/');
 
   andThen(function() {
@@ -71,7 +70,7 @@ test('visiting / with acceptance-feature on', function(assert) {
 });
 
 test('visiting / with no features set', function(assert) {
-  App = startApp();
+  this.application = startApp();
   visit('/');
 
   andThen(function() {
