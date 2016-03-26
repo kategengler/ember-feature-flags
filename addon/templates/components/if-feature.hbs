@@ -1,0 +1,5 @@
+{{#if (get featureService normalizedFlag)}}
+  {{yield}}
+{{else}}
+  {{yield to="inverse"}}
+{{/if}}

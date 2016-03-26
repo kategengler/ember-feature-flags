@@ -16,3 +16,9 @@
 
 <a {{action "toggleAcceptanceFeatureOff"}} class="test-turn-acceptance-off">Turn Acceptance Feature off</a>
 <a {{action "toggleAcceptanceFeatureSetupOff"}} class="test-turn-acceptance-setup-off">Turn Acceptance Feature off (Setup)</a>
+
+{{#if-feature "acceptance-feature"}}
+  <div class="acceptance-feature-on-with-component">Acceptance feature on with component</div>
+{{else}}
+  <div class="acceptance-feature-off-with-component">Acceptance feature OFF with component</div>
+{{/if-feature}}
