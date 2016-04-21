@@ -10,6 +10,7 @@ export function initialize() {
   application.inject('route', serviceName, serviceLookupName);
   application.inject('controller', serviceName, serviceLookupName);
   application.inject('component', serviceName, serviceLookupName);
+  application.inject('adapter', serviceName, serviceLookupName);
   application.inject(serviceLookupName, 'application', 'application:main');
 }
 
