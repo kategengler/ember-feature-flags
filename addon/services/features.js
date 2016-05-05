@@ -26,26 +26,22 @@ export default Ember.Service.extend({
     }
   },
 
-  normalizeFlag(flag) {
-    return camelize(flag);
-  },
-
   enable(flag) {
-    let normalizedFlag = this.normalizeFlag(flag);
+    let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = true;
     this.notifyPropertyChange(normalizedFlag);
   },
 
   disable(flag) {
-    let normalizedFlag = this.normalizeFlag(flag);
+    let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = false;
     this.notifyPropertyChange(normalizedFlag);
   },
 
   isEnabled(feature) {
     let isEnabled = this._featureIsEnabled(feature);
-    if (this.logFeatureFlagMissEnabled() && !isEnabled) {
-      this.logFeatureFlagMiss(feature);
+    if (this._logFeatureFlagMissEnabled() && !isEnabled) {
+      this._logFeatureFlagMiss(feature);
     }
     return isEnabled;
   },
@@ -55,18 +51,22 @@ export default Ember.Service.extend({
   },
 
   _featureIsEnabled(feature) {
-    let normalizeFeature = this.normalizeFlag(feature);
+    let normalizeFeature = this._normalizeFlag(feature);
     return this._flags[normalizeFeature] || false;
   },
 
-  logFeatureFlagMissEnabled() {
+  _logFeatureFlagMissEnabled() {
     return !!this.get('config.LOG_FEATURE_FLAG_MISS');
   },
 
-  logFeatureFlagMiss(feature) {
+  _logFeatureFlagMiss(feature) {
     if (console && console.info) {
       console.info('Feature flag off:', feature);
     }
+  },
+
+  _normalizeFlag(flag) {
+    return camelize(flag);
   },
 
   unknownProperty(key) {
