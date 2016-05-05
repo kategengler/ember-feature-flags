@@ -11,7 +11,7 @@ ember install ember-feature-flags
 
 ### Usage
 
-This addon injects a property `features` onto your routes, controllers and components.
+This addon injects a property `features` (configurablee) into your routes, controllers and components.
 
 For example you may check if a feature is enabled:
 

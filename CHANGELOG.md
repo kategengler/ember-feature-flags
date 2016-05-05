@@ -1,3 +1,10 @@
+#v3.0.0
+- `features` is now a Ember.Service. It is still injected by default, and at the configured name into routes, controllers and components. This may be a breaking change if you were injecting the service elsewhere. The injection is now `service:<configured name>`.
+- Bugfix: LOG_FEATURE_FLAG_MISS should now work
+- Deprecated features have been removed: `features.enabled` (which became `features.isEnabled`), `resetFeatureFlags` test helper (no longer needed), setting feature flags via APP.FEATURES
+- `features.setup` will now `notifyPropertyChange` for the flags set (Thanks @jcope2013)
+- Test helpers are now in the `test-support` folder that will merge with host app's test directory
+
 #v2.0.1
 - Fix deprecations that started with Ember 2.1 (Thanks @Arkham)
 - Upgrade ember-cli
