@@ -117,13 +117,14 @@ wondering why your feature is not working.
 #### `withFeature`
 
 Turns on a feature for the test in which it is called.
-To use, import into your test-helper.js: `import 'ember-feature-flags/tests/helpers/with-feature'` and add to your 
+To use, import into your test-helper.js: `import './helpers/with-feature'` and add to your 
 test `.jshintrc`, it will now be available in all of your tests.
 
 Example:
 
 ```js
-import 'ember-feature-flags/tests/helpers/with-feature';
+// tests/acceptance/links-go-to-the-new-homepage-test.js
+import '../helpers/with-feature';
 
 test( "links go to the new homepage", function () {
   withFeature( 'new-homepage' );
