@@ -117,7 +117,7 @@ wondering why your feature is not working.
 #### `withFeature`
 
 Turns on a feature for the test in which it is called.
-To use either:
+To use, do either:
 
 - import into your test-helper.js: `import {withFeature} from 'my-app/ember-feature-flags/tests/helpers/with-feature'` and add to your 
 test `.jshintrc`, it will now be available in all of your tests.
