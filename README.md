@@ -31,7 +31,7 @@ Features are also available as properties of `features`. They are camelized.
 
 ```js
 export default Ember.Controller.extend({
-  plans: function(){
+  plans(){
     if (this.features.get('newBillingPlans')){
       // Return new plans
     } else {
@@ -117,13 +117,16 @@ wondering why your feature is not working.
 #### `withFeature`
 
 Turns on a feature for the test in which it is called.
-To use, import into your test-helper.js: `import 'ember-feature-flags/tests/helpers/with-feature'` and add to your 
+To use, do either:
+
+- import into your test-helper.js: `import {withFeature} from 'my-app/ember-feature-flags/tests/helpers/with-feature'` and add to your 
 test `.jshintrc`, it will now be available in all of your tests.
+- import locally in each test file it is needed in: `import {withFeature} from 'my-app/ember-feature-flags/tests/helpers/with-feature'`
 
 Example:
 
 ```js
-import 'ember-feature-flags/tests/helpers/with-feature';
+import {withFeature} from 'my-app/ember-feature-flags/tests/helpers/with-feature';
 
 test( "links go to the new homepage", function () {
   withFeature( 'new-homepage' );
