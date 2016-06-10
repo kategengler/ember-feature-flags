@@ -43,7 +43,7 @@ export default Ember.Controller.extend({
 
 Check whether a feature is enabled in a template:
 
-```html
+```hbs
 {{#if features.newHomepage}}
   {{link-to "new.homepage"}}
 {{else}}
