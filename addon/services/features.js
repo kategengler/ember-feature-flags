@@ -15,6 +15,10 @@ export default Ember.Service.extend({
 
   setup(flags) {
     this._resetFlags();
+    this.add(flags);
+  },
+
+  add(flags) {
     for (let flag in flags) {
       if (flags.hasOwnProperty(flag)) {
         if (!!flags[flag]) {
