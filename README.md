@@ -138,13 +138,15 @@ test( "links go to the new homepage", function () {
 
 ### Integration Tests
 
-If you use `this.features.isEnabled()` in components under integration test, you will need to inject a stub service in your tests. Using ember-qunit 0.4.16 or later, here's how to do this:
+If you use `this.features.isEnabled()` or `features.featureName` in components under integration test, you will need to inject a stub service in your tests. Using ember-qunit 0.4.16 or later, here's how to do this:
 
 ```js
+import FeaturesService from 'ember-feature-flags/services/features';
+
 const { getOwner } = Ember;
 
-let featuresService = Ember.Service.extend({
-  isEnabled() {
+let featuresService = FeaturesService.extend({
+  isEnabled(/* featureName */) {
     return false;
   }
 });
