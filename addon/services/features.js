@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { String: { camelize }, computed, get } = Ember; 
+const { String: { camelize }, computed, get } = Ember;
 export default Ember.Service.extend({
 
   init() {
@@ -43,6 +43,7 @@ export default Ember.Service.extend({
     if (this._logFeatureFlagMissEnabled() && !isEnabled) {
       this._logFeatureFlagMiss(feature);
     }
+    return isEnabled;
   },
   /**
    * @public
