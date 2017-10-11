@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
-let { camelize } = Ember.String;
-
+const { String: { camelize }, computed, get } = Ember;
 export default Ember.Service.extend({
 
   init() {
@@ -30,14 +29,15 @@ export default Ember.Service.extend({
     let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = true;
     this.notifyPropertyChange(normalizedFlag);
+    this.notifyPropertyChange('_flag_observer');
   },
 
   disable(flag) {
     let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = false;
     this.notifyPropertyChange(normalizedFlag);
+    this.notifyPropertyChange('_flag_observer');
   },
-
   isEnabled(feature) {
     let isEnabled = this._featureIsEnabled(feature);
     if (this._logFeatureFlagMissEnabled() && !isEnabled) {
@@ -45,20 +45,38 @@ export default Ember.Service.extend({
     }
     return isEnabled;
   },
-
+  /**
+   * @public
+   * @property
+   * Return list of all flags
+   */
+  flags: computed('_flag_observer', function() {
+    return get(this, '_flags');
+  }).readOnly(),
+  /**
+   * @private
+   */
   _resetFlags() {
     this._flags = Object.create(null);
   },
-
+  /**
+   * @private
+   * @param {*} feature
+   */
   _featureIsEnabled(feature) {
     let normalizeFeature = this._normalizeFlag(feature);
     return this._flags[normalizeFeature] || false;
   },
-
+  /**
+   * @private
+   */
   _logFeatureFlagMissEnabled() {
     return !!this.get('config.LOG_FEATURE_FLAG_MISS');
   },
-
+  /**
+   * @private
+   * @param {*} feature
+   */
   _logFeatureFlagMiss(feature) {
     if (console && console.info) {
       console.info('Feature flag off:', feature);

@@ -37,3 +37,14 @@ test('unknownProperties', function(assert) {
     features.set('someNewFeature');
   }, /use enable/, 'Throws an error when setting an unknownProperty');
 });
+
+test('flags property should be exposed', function(assert) {
+  let features = this.subject();
+  features.setup({
+    'some-new-feature': true,
+    'other-newThing': false,
+    'something.other-thing': true
+  });
+
+  assert.equal(features.get('flags'), features.get('_flags'), 'internal `_flags` property should match public `flags`');
+});
