@@ -52,8 +52,7 @@ export default Ember.Service.extend({
    */
   flags: computed('_flag_observer', function() {
     return get(this, '_flags');
-
-  }),
+  }).readOnly(),
   /**
    * @private
    */
