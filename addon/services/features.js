@@ -52,7 +52,7 @@ export default Ember.Service.extend({
    * @public
    * Return list of all flags
    */
-  flags: computed('_flags', function() {
+  flags: Ember.computed('_flags', function() {
     return this.get('_flags');
   }),
   
