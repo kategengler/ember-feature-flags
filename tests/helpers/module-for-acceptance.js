@@ -1,25 +1,21 @@
 import { module } from 'qunit';
+import { resolve } from 'rsvp';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
 
-// jscs:disable
 export default function(name, options = {}) {
   module(name, {
     beforeEach() {
       this.application = startApp();
 
       if (options.beforeEach) {
-        options.beforeEach.apply(this, arguments);
+        return options.beforeEach.apply(this, arguments);
       }
     },
 
     afterEach() {
-      if (options.afterEach) {
-        options.afterEach.apply(this, arguments);
-      }
-
-      destroyApp(this.application);
+      let afterEach = options.afterEach && options.afterEach.apply(this, arguments);
+      return resolve(afterEach).then(() => destroyApp(this.application));
     }
   });
 }
-// jscs:enable
