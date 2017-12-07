@@ -22,7 +22,8 @@
     "currentURL",
     "currentPath",
     "currentRouteName",
-    "withFeature"
+    "withFeature",
+    "withoutFeature"
   ],
   "node": false,
   "browser": false,
