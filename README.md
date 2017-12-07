@@ -1,7 +1,7 @@
 
 # ember-feature-flags [![Build Status](https://travis-ci.org/kategengler/ember-feature-flags.svg?branch=master)](https://travis-ci.org/kategengler/ember-feature-flags) [![Ember Observer Score](http://emberobserver.com/badges/ember-feature-flags.svg)](http://emberobserver.com/addons/ember-feature-flags)
 
-An ember-cli addon to provide feature flags. 
+An ember-cli addon to provide feature flags.
 
 ### Installation
 
@@ -117,7 +117,7 @@ wondering why your feature is not working.
 #### `withFeature`
 
 Turns on a feature for the test in which it is called.
-To use, import into your test-helper.js: `import '<app-name>/tests/helpers/with-feature'` and add to your 
+To use, import into your test-helper.js: `import '<app-name>/tests/helpers/with-feature'` and add to your
 test `.jshintrc`, it will now be available in all of your tests.
 
 Example:
@@ -125,13 +125,35 @@ Example:
 ```js
 import '<app-name>/tests/helpers/with-feature';
 
-test( "links go to the new homepage", function () {
+test( "links go to the new homepage with feature flag 'new-homepage'", function () {
   withFeature( 'new-homepage' );
 
   visit('/');
   click('a.home');
   andThen(function(){
     equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
+  });
+});
+```
+
+#### `withoutFeature`
+
+Turns off a feature for the test in which it is called.
+To use, import into your test-helper.js: `import '<app-name>/tests/helpers/without-feature'` and add to your
+test `.jshintrc`, it will now be available in all of your tests.
+
+Example:
+
+```js
+import '<app-name>/tests/helpers/without-feature';
+
+test( "links go to the homepage without feature flag 'new-homepage'", function () {
+  withoutFeature( 'new-homepage' );
+
+  visit('/');
+  click('a.home');
+  andThen(function(){
+    equal(currentRoute(), 'old.homepage', 'Should be on the old homepage');
   });
 });
 ```

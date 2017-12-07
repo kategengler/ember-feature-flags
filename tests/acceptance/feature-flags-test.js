@@ -46,6 +46,17 @@ test('visiting / with acceptance-feature on', function(assert) {
   });
 });
 
+test('visiting / with acceptance-feature off', function(assert) {
+  this.application = startApp();
+  withoutFeature('acceptance-feature');
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
+    assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
+  });
+});
+
 test('visiting / with no features set', function(assert) {
   this.application = startApp();
   visit('/');
