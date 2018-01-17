@@ -11,7 +11,7 @@ ember install ember-feature-flags
 
 ### Usage
 
-This addon provides a service named `features` (configurable) available for injection into your routes, controller,s components, etc.
+This addon provides a service named `features` (configurable) available for injection into your routes, controllers, components, etc.
 
 For example you may check if a feature is enabled:
 
@@ -59,7 +59,7 @@ Check whether a feature is enabled in a template (be sure to inject the features
 {{/if}}
 ```
 
-*NOTE:* `features` service should be injected into respective component or template in order to make above snippet work:
+*NOTE:* `features` service must be injected into the respective component:
 
 ```js
 // components/homepage-link.js
@@ -105,21 +105,6 @@ module.exports = function(environment) {
     ENV.featureFlags['download-cats'] = true;
   }
 
-  return ENV;
-};
-```
-
-#### `config.featureFlagsService`
-
-The name of the `features` service can be customized with the `featureFlagsService` config
-option. For example:
-
-```javascript
-// config/environment.js
-module.exports = function(environment) {
-  var ENV = {
-    featureFlagsService: 'featuresService'
-  };
   return ENV;
 };
 ```
