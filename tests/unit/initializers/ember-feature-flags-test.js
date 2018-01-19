@@ -32,7 +32,7 @@ test('service has application injected', function(assert) {
   assert.ok(service.application, 'service has application');
 });
 
-['route', 'controller', 'component'].forEach(function(type) {
+['controller', 'component'].forEach(function(type) {
   test(`${type} has service injected`, function(assert) {
     initialize(registry, application);
     application.register(`${type}:main`, Ember.Object.extend());
@@ -41,7 +41,7 @@ test('service has application injected', function(assert) {
   });
 });
 
-['route', 'controller', 'component'].forEach(function(type) {
+['controller', 'component'].forEach(function(type) {
   test(`${type} has service injected with custom name`, function(assert) {
     config.featureFlagsService = 'wackyWhoop';
     initialize(registry, application);

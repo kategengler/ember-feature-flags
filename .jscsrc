@@ -1,4 +1,5 @@
 {
   "preset": "ember-suave",
-  "excludeFiles": ["tests/dummy/config"]
+  "excludeFiles": ["tests/dummy/config"],
+  "disallowDirectPropertyAccess": null
 }
