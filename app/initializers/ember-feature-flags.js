@@ -2,7 +2,7 @@ import Ember from 'ember';
 import config from '../config/environment';
 import Features from '../services/features';
 
-const INJECTION_FACTORIES_DEPRECATION_MESSAGE = '[ember-feature-flags] Future versions of ember-feature-flags will no longer inject the service automatically. Instead, you should explicitly inject it into your Route, Controller or Component with `Ember.inject.service`.';
+const INJECTION_FACTORIES_DEPRECATION_MESSAGE = '[ember-feature-flags] The next major version of ember-feature-flags will no longer inject the service automatically. Instead, you should explicitly inject it into your Route, Controller or Component with `Ember.inject.service`.';
 
 export function initialize() {
   let application = arguments[1] || arguments[0];

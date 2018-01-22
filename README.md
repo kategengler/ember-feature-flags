@@ -16,32 +16,39 @@ This addon injects a property `features` (configurable) into your routes, contro
 For example you may check if a feature is enabled:
 
 ```js
-export default Ember.Controller.extend({
-  plans: function(){
-    if (this.features.isEnabled('new-billing-plans')){
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
+export default Controller.extend({
+  features: inject.service(), 
+  plans() {
+    if (this.get('features').isEnabled('new-billing-plans')) {
       // Return new plans
     } else {
       // Return old plans
     }
-  }.property()
+  }
 });
 ```
 
 Features are also available as properties of `features`. They are camelized.
 
 ```js
-export default Ember.Controller.extend({
-  plans: function(){
-    if (this.features.get('newBillingPlans')){
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+export default Controller.extend({
+  features: inject.service(), 
+  plans: computed('features.newBillingPlans', function(){
+    if (this.get('features.newBillingPlans')) {
       // Return new plans
     } else {
       // Return old plans
     }
-  }.property('features.newBillingPlans')
+  })
 });
 ```
 
-Check whether a feature is enabled in a template:
+Check whether a feature is enabled in a template (be sure to inject the features service into the template's backing JavaScript):
 
 ```hbs
 {{#if features.newHomepage}}
@@ -54,14 +61,14 @@ Check whether a feature is enabled in a template:
 Features can be toggled at runtime, and are bound:
 
 ```js
-features.enable('newHomepage');
-features.disable('newHomepage');
+this.get('features').enable('newHomepage');
+this.get('features').disable('newHomepage');
 ```
 
 Features can be set in bulk:
 
 ```js
-features.setup({
+this.get('features').setup({
   "new-billing-plans": true,
   "new-homepage": false
 });
