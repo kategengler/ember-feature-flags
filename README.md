@@ -124,8 +124,8 @@ wondering why your feature is not working.
 #### `withFeature`
 
 Turns on a feature for the test in which it is called.
-To use, import into your test-helper.js: `import '<app-name>/tests/helpers/with-feature'` and add to your 
-test `.jshintrc`, it will now be available in all of your tests.
+To use globally, import the helper into your test-helper.js: `import './helpers/with-feature'` and add to your
+test `.jshintrc` or `.eslintrc.js` file. It will now be available in all of your tests.
 
 Example:
 
