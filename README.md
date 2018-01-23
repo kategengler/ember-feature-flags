@@ -11,7 +11,7 @@ ember install ember-feature-flags
 
 ### Usage
 
-This addon provides a service named `features` (configurable) available for injection into your routes, controllers, components, etc.
+This addon provides a service named `features` available for injection into your routes, controllers, components, etc.
 
 For example you may check if a feature is enabled:
 
@@ -165,6 +165,7 @@ Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https
 #### Installation
 
 * `git clone` this repository
+* cd ember-feature-flags`
 * `npm install`
 
 #### Running

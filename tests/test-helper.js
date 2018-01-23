@@ -5,4 +5,5 @@ import { start } from 'ember-qunit';
 import 'ember-feature-flags/test-support/helpers/with-feature';
 
 setApplication(Application.create(config.APP));
+
 start();
