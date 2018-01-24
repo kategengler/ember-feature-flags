@@ -1,3 +1,11 @@
+#v4.0.0
+- Remove default injection of the `features` service, it must now be explicitly injected where you want to use it. (Thanks @SergeAstapov)
+- Remove configuration option for the name of the default injected features service. (Thanks @SergeAstapov) 
+- Move test helper `withFeature` to `addon-test-support`, it should now be imported from `ember-feature-flags/test/helpers/with-feature` (Thanks @SergeAstapov)
+
+#v3.0.1
+- Deprecate default injection of the `features` service, it must now be explicitly injected where you want to use it. (Thanks @SergeAstapov)
+ 
 #v3.0.0
 - `features` is now a Ember.Service. It is still injected by default, and at the configured name into routes, controllers and components. This may be a breaking change if you were injecting the service elsewhere. The injection is now `service:<configured name>`.
 - Bugfix: LOG_FEATURE_FLAG_MISS should now work
