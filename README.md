@@ -11,15 +11,15 @@ ember install ember-feature-flags
 
 ### Usage
 
-This addon injects a property `features` (configurable) into your routes, controllers and components.
+This addon provides a service named `features` available for injection into your routes, controllers, components, etc.
 
 For example you may check if a feature is enabled:
 
 ```js
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 export default Controller.extend({
-  features: inject.service(), 
+  features: service(), 
   plans() {
     if (this.get('features').isEnabled('new-billing-plans')) {
       // Return new plans
@@ -34,10 +34,10 @@ Features are also available as properties of `features`. They are camelized.
 
 ```js
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 export default Controller.extend({
-  features: inject.service(), 
+  features: service(), 
   plans: computed('features.newBillingPlans', function(){
     if (this.get('features.newBillingPlans')) {
       // Return new plans
@@ -51,11 +51,21 @@ export default Controller.extend({
 Check whether a feature is enabled in a template (be sure to inject the features service into the template's backing JavaScript):
 
 ```hbs
+// templates/components/homepage-link.hbs
 {{#if features.newHomepage}}
   {{link-to "new.homepage"}}
 {{else}}
   {{link-to "old.homepage"}}
 {{/if}}
+```
+
+*NOTE:* `features` service must be injected into the respective component:
+
+```js
+// components/homepage-link.js
+export default Component.extend({
+  features: service()
+});
 ```
 
 Features can be toggled at runtime, and are bound:
@@ -99,21 +109,6 @@ module.exports = function(environment) {
 };
 ```
 
-#### `config.featureFlagsService`
-
-The name of the `features` injection can be customized with the `featureFlagsService` config
-option. For example:
-
-```javascript
-// config/environment.js
-module.exports = function(environment) {
-  var ENV = {
-    featureFlagsService: 'featuresService'
-  };
-  return ENV;
-};
-```
-
 #### `ENV.LOG_FEATURE_FLAG_MISS`
 
 Will log when a feature flag is queried and found to be off, useful to prevent cursing at the app,
@@ -148,9 +143,7 @@ test( "links go to the new homepage", function () {
 If you use `this.features.isEnabled()` in components under integration test, you will need to inject a stub service in your tests. Using ember-qunit 0.4.16 or later, here's how to do this:
 
 ```js
-const { getOwner } = Ember;
-
-let featuresService = Ember.Service.extend({
+let featuresService = Service.extend({
   isEnabled() {
     return false;
   }
@@ -172,16 +165,17 @@ Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https
 #### Installation
 
 * `git clone` this repository
+* cd ember-feature-flags`
 * `npm install`
-* `bower install`
 
 #### Running
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
 #### Running Tests
 
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
