@@ -68,6 +68,18 @@ export default Component.extend({
 });
 ```
 
+Alternatively you can use a template helper named `feature-flag`:
+
+```hbs
+// templates/components/homepage-link.hbs
+{{#if (feature-flag 'newHomepage')}}
+  {{link-to "new.homepage"}}
+{{else}}
+  {{link-to "old.homepage"}}
+{{/if}}
+``` 
+
+
 Features can be toggled at runtime, and are bound:
 
 ```js
