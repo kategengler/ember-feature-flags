@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { run } from '@ember/runloop';
 
 moduleForComponent('feature-flag', 'helper:feature-flag', {
   integration: true,
@@ -49,4 +50,24 @@ test('it renders block invocation with unknown flag', function(assert) {
   `);
 
   assert.equal(this.$().text().trim(), 'Some other text');
+});
+
+test('it recomputes when flag status changes', function(assert) {
+  this.features.setup({
+    someFeature: false
+  });
+
+  this.render(hbs`
+    {{#if (feature-flag 'someFeature')}}
+      Some text
+    {{else}}
+      Some other text
+    {{/if}}
+  `);
+
+  assert.equal(this.$().text().trim(), 'Some other text');
+
+  run(() => this.features.enable('someFeature'));
+
+  assert.equal(this.$().text().trim(), 'Some text');
 });
