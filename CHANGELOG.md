@@ -1,3 +1,6 @@
+#v4.1.0
+- Add `feature-flag` helper for use in templates (Thanks @SergeAstapov)
+
 #v4.0.0
 - Remove default injection of the `features` service, it must now be explicitly injected where you want to use it. (Thanks @SergeAstapov)
 - Remove configuration option for the name of the default injected features service. (Thanks @SergeAstapov) 
