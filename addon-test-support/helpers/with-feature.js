@@ -1,8 +1,6 @@
 import { registerHelper } from '@ember/test';
+import { enableFeature } from '../index';
 
-export function withFeature(app, featureName) {
-  let featuresService = app.__container__.lookup('service:features');
-  featuresService.enable(featureName);
-}
-
-registerHelper('withFeature', withFeature);
+registerHelper('withFeature', function withFeature(app, featureName) {
+  enableFeature(app.__container__, featureName);
+});
