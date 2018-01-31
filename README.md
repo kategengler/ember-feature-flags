@@ -79,7 +79,6 @@ Alternatively you can use a template helper named `feature-flag`:
 {{/if}}
 ``` 
 
-
 Features can be toggled at runtime, and are bound:
 
 ```js
@@ -95,6 +94,18 @@ this.get('features').setup({
   "new-homepage": false
 });
 ```
+*NOTE:* `setup` methods reset previously setup flags and their state.
+
+You can get list of known feature flags via `flags` computed property:
+```js
+this.get('features').setup({
+  "new-billing-plans": true,
+  "new-homepage": false
+});
+
+this.get('features.flags') // ['newBillingPlans', 'newHomepage']
+```
+
 
 ### Configuration
 

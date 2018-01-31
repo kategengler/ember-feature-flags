@@ -1,6 +1,7 @@
 /*eslint-disable no-extra-boolean-cast, no-console */
 import Service from '@ember/service';
 import { camelize } from '@ember/string';
+import { computed } from '@ember/object';
 
 export default Service.extend({
 
@@ -45,6 +46,10 @@ export default Service.extend({
     }
     return isEnabled;
   },
+
+  flags: computed(function () {
+    return Object.keys(this._flags);
+  }).volatile(),
 
   _resetFlags() {
     this._flags = Object.create(null);
