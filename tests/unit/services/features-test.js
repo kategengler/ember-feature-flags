@@ -37,3 +37,15 @@ test('unknownProperties', function(assert) {
     features.set('someNewFeature');
   }, /use enable/, 'Throws an error when setting an unknownProperty');
 });
+
+test('it exposes list of known flags', function(assert) {
+  let features = this.subject();
+
+  features.setup({
+    'some-new-feature': true,
+    'other-newThing': false,
+    'something.other-thing': true
+  });
+
+  assert.deepEqual(features.get('flags'), ['someNewFeature', 'otherNewThing', 'somethingOtherThing']);
+});
