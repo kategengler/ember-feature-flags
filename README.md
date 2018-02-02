@@ -212,7 +212,7 @@ Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https
 
 * `git clone` this repository
 * cd ember-feature-flags`
-* `npm install`
+* `yarn install`
 
 #### Running
 
@@ -221,10 +221,10 @@ Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https
 
 #### Running Tests
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
+* `ember try:each` (Test against multiple ember versions)
 * `ember test`
 * `ember test --server`
 
-#### Building
+#### Deploying
 
-* `ember build`
+* See RELEASE.md
