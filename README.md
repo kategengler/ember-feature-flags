@@ -139,9 +139,32 @@ wondering why your feature is not working.
 
 ### Test Helpers
 
-#### `withFeature`
+#### `enableFeature`
 
 Turns on a feature for the test in which it is called.
+Requires ember-cli-qunit >= 4.1.0. 
+
+Example:
+```js
+import { enableFeature } from 'ember-feature-flags/test-support';
+
+module('Acceptance | Awesome page', function(hooks) {
+  setupApplicationTest(hooks);
+
+  test('links go to the new homepage', async function (assert) {
+    enableFeature(this.owner, 'new-homepage');
+  
+    await visit('/');
+    await click('a.home');
+
+    assert.equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
+  });
+});
+```
+
+#### `withFeature`
+
+"Old"-style acceptance tests can utilize `withFeature` test helper to turn on a feature for the test.
 To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your 
 test `.jshintrc`, it will now be available in all of your tests.
 
