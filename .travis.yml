@@ -36,7 +36,6 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-release
     - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
-    - env: EMBER_TRY_SCENARIO=ember-default
     - stage: deploy
       if: tag IS present
       install: yarn global add auto-dist-tag
