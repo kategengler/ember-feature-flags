@@ -30,7 +30,7 @@ jobs:
         - yarn test
 
     # runs tests against each supported Ember version
-    - stage: older version tests
+    - stage: other version tests
       env: EMBER_TRY_SCENARIO=ember-lts-2.12
     - env: EMBER_TRY_SCENARIO=ember-lts-2.16
     - env: EMBER_TRY_SCENARIO=ember-release
