@@ -10,7 +10,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember try:each"
+    "test": "ember try:each",
+    "changelog": "lerna-changelog"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "ember-suave": "^4.0.1",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
+    "lerna-changelog": "^0.7.0",
     "loader.js": "^4.2.3"
   },
   "keywords": [
@@ -57,6 +59,16 @@
     "configPath": "tests/dummy/config",
     "versionCompatibility": {
       "ember": ">=1.12.1"
+    }
+  },
+  "changelog": {
+    "repo": "kategengler/ember-feature-flags",
+    "labels": {
+      "breaking": ":boom: Breaking Change",
+      "enhancement": ":rocket: Enhancement",
+      "bug": ":bug: Bug Fix",
+      "documentation": ":memo: Documentation",
+      "internal": ":house: Internal"
     }
   }
 }
