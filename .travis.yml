@@ -47,7 +47,7 @@ jobs:
           secure: PAcETIEJWGozRpZ17Sv766wXw9O1l/yBcTn+lJdyEPn2JWwk74Hen3gmR+SEUk+oPnfzRrEizgGwzKvh9brqIvGZl6HH3MrPI8URu82um1v3/FSaLZsY40NWDdFJXhB0oiZozWgXX5mBCm+tLhuWFbiYl9ajfzwNBhfsHeuWjgE=
         on:
           tags: true
-          repo: kategengler/ember-feature-flagss
+          repo: kategengler/ember-feature-flags
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
