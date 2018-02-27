@@ -1,6 +1,6 @@
 import { registerHelper } from '@ember/test';
-import { enableFeature } from '../index';
+import { _enableFeature } from '../-private/enable-feature';
 
 registerHelper('withFeature', function withFeature(app, featureName) {
-  enableFeature(app.__container__, featureName);
+  _enableFeature(app.__deprecatedInstance__, featureName);
 });

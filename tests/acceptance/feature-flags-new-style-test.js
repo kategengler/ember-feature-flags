@@ -7,7 +7,7 @@ module('Acceptance | feature flags with new-style acceptance tests', function(ho
   setupApplicationTest(hooks);
 
   test('visiting / with acceptance-feature on', async function(assert) {
-    enableFeature(this.owner, 'acceptance-feature');
+    enableFeature('acceptance-feature');
 
     await visit('/');
 
