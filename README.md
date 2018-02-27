@@ -152,7 +152,7 @@ module('Acceptance | Awesome page', function(hooks) {
   setupApplicationTest(hooks);
 
   test('links go to the new homepage', async function (assert) {
-    enableFeature(this.owner, 'new-homepage');
+    enableFeature('new-homepage');
   
     await visit('/');
     await click('a.home');
