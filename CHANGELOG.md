@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v5.0.0 (2018-02-27)
+
+#### :boom: Breaking Change :bug: Bug Fix
+* [#71](https://github.com/kategengler/ember-feature-flags/pull/71) Update new style testing helpers usage to support integration tests. ([@SergeAstapov](https://github.com/SergeAstapov))
+  Breaking Change: No longer pass this.owner into `enableFeature`, it is now just `enableFeature('foo')`
+
+#### :house: Internal
+* [#52](https://github.com/kategengler/ember-feature-flags/pull/52) npmignore coverage directory. ([@akatov](https://github.com/akatov))
+
+#### Committers: 2
+- Dmitri Akatov ([akatov](https://github.com/akatov))
+- Sergey Astapov ([SergeAstapov](https://github.com/SergeAstapov))
+
 ## v4.2.0 (2018-02-02)
 
 #### :rocket: Enhancement
