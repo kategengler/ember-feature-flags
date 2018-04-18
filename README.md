@@ -145,7 +145,7 @@ wondering why your feature is not working.
 #### `enableFeature`
 
 Turns on a feature for the test in which it is called.
-Requires ember-cli-qunit >= 4.1.0. 
+Requires ember-cli-qunit >= 4.1.0 and the newer style of tests using `setupApplicationTest`.
 
 Example:
 ```js
