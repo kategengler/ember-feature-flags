@@ -169,7 +169,7 @@ module('Acceptance | Awesome page', function(hooks) {
 
 "Old"-style acceptance tests can utilize `withFeature` test helper to turn on a feature for the test.
 To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your 
-test `.jshintrc`, it will now be available in all of your tests.
+test `.jshintrc`, it will now be available in all of your tests. _Note: Older versions of ember-feature-flags do not include this import: `import 'ember-feature-flags/test-support/helpers/with-feature';`. Try using `withFeature` without the import if you experience problems.
 
 Example:
 
