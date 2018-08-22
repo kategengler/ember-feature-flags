@@ -14,6 +14,22 @@ ember install ember-feature-flags
 
 ### Usage
 
+#### Computed-Property Macro
+
+This addon provides a computed-property macro that you can use to add properties that toggle
+whenever feature-flags do:
+```js
+import Controller from '@ember/controller';
+import { macro as featureFlag } from 'ember-feature-flags';
+export default Controller.extend({
+  hasNewBilling: featureFlag('new-billing-plans')
+});
+```
+
+The argument to the macro can be camelCase, snake_case, or kebab-case.
+
+#### Service
+
 This addon provides a service named `features` available for injection into your routes, controllers, components, etc.
 
 For example you may check if a feature is enabled:
@@ -33,7 +49,8 @@ export default Controller.extend({
 });
 ```
 
-Features are also available as properties of `features`. They are camelized.
+Features are also available as properties of `features`. These properties are camelized,
+regardless of how the feature-flag is spelled.
 
 ```js
 import Controller from '@ember/controller';
@@ -71,7 +88,9 @@ export default Component.extend({
 });
 ```
 
-Alternatively you can use a template helper named `feature-flag`:
+#### Helper
+
+Alternatively, you can use a template helper named `feature-flag`:
 
 ```hbs
 // templates/components/homepage-link.hbs
@@ -81,6 +100,8 @@ Alternatively you can use a template helper named `feature-flag`:
   {{link-to "old.homepage"}}
 {{/if}}
 ``` 
+
+The helper, like the computed-property macro, works with camelCase, snake_case, or kebab-case.
 
 Features can be toggled at runtime, and are bound:
 
