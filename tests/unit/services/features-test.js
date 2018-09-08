@@ -1,4 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
+import EmberObject, { computed } from '@ember/object';
+import { run } from '@ember/runloop';
 
 moduleFor('service:features', 'Unit | Service | features', {
   // Specify the other units that are required for this test.
@@ -36,6 +38,35 @@ test('unknownProperties', function(assert) {
   assert.throws(function() {
     features.set('someNewFeature');
   }, /use enable/, 'Throws an error when setting an unknownProperty');
+});
+
+test('property changes', function(assert) {
+  let features = this.subject()
+  features.setup({});
+
+  let object = EmberObject.extend({
+    features,
+    camelized: computed('features.someNewFeature', function() {
+      return this.get('features.someNewFeature') ? 'Y' : 'N'
+    }),
+
+    snaked: computed('features.some_new_feature', function() {
+      return this.get('features.some_new_feature') ? 'Y' : 'N'
+    }),
+  }).create();
+
+  assert.equal('N', object.get('camelized'), 'normalized name initial');
+  assert.equal('N', object.get('snaked'), 'passed-in name initial');
+
+  run(features, 'enable', 'some_new_feature');
+
+  assert.equal('Y', object.get('camelized'), 'normalized name changes on enable');
+  assert.equal('Y', object.get('snaked'), 'passed-in name changes on enable');
+
+  run(features, 'disable', 'some_new_feature');
+
+  assert.equal('N', object.get('camelized'), 'normalized name changes on disable');
+  assert.equal('N', object.get('snaked'), 'passed-in name changes on disable');
 });
 
 test('it exposes list of known flags', function(assert) {
