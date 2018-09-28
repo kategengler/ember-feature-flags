@@ -97,6 +97,19 @@ this.get('features').setup({
   "new-homepage": false
 });
 ```
+
+You may want to set the flags based on the result of a fetch:
+
+```js
+// routes/application.js
+features: inject(),
+beforeModel() {
+   return fetch('/my-flag/api').then((data) => {
+     features.setup(data.json());
+  });
+}
+```
+
 *NOTE:* `setup` methods reset previously setup flags and their state.
 
 You can get list of known feature flags via `flags` computed property:
