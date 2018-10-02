@@ -30,12 +30,14 @@ export default Service.extend({
   enable(flag) {
     let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = true;
+    this.notifyPropertyChange(flag);
     this.notifyPropertyChange(normalizedFlag);
   },
 
   disable(flag) {
     let normalizedFlag = this._normalizeFlag(flag);
     this._flags[normalizedFlag] = false;
+    this.notifyPropertyChange(flag);
     this.notifyPropertyChange(normalizedFlag);
   },
 
