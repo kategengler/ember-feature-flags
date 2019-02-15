@@ -1,7 +1,7 @@
 ---
 language: node_js
 node_js:
-  - "4"
+  - "6"
 
 sudo: false
 dist: trusty
@@ -23,25 +23,36 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
   include:
-    # runs tests with current locked deps and linting
-    - stage: test
-      script:
-        - yarn lint:js
-        - yarn test
+    # runs linting and tests with current locked deps
 
-    # runs tests against each supported Ember version
-    - stage: other version tests
-      env: EMBER_TRY_SCENARIO=ember-lts-2.12
-    - env: EMBER_TRY_SCENARIO=ember-lts-2.16
+    - stage: "Tests"
+      name: "Tests"
+      script:
+        - npm run lint:hbs
+        - npm run lint:js
+        - npm test
+
+    # we recommend new addons test the current and previous LTS
+    # as well as latest stable release (bonus points to beta/canary)
+    - stage: "Additional Tests"
+      env: EMBER_TRY_SCENARIO=ember-lts-2.16
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.18
     - env: EMBER_TRY_SCENARIO=ember-release
     - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
+    - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
     - stage: deploy
       if: tag IS present
       install: yarn global add auto-dist-tag
       script: auto-dist-tag --write
       deploy:
         provider: npm
+        email: katie@kmg.io
+        api_key:
+          secure: PAcETIEJWGozRpZ17Sv766wXw9O1l/yBcTn+lJdyEPn2JWwk74Hen3gmR+SEUk+oPnfzRrEizgGwzKvh9brqIvGZl6HH3MrPI8URu82um1v3/FSaLZsY40NWDdFJXhB0oiZozWgXX5mBCm+tLhuWFbiYl9ajfzwNBhfsHeuWjgE=
+        on:
+          tags: true
+          repo: kategengler/ember-feature-flags
         email: katie@kmg.io
         api_key:
           secure: PAcETIEJWGozRpZ17Sv766wXw9O1l/yBcTn+lJdyEPn2JWwk74Hen3gmR+SEUk+oPnfzRrEizgGwzKvh9brqIvGZl6HH3MrPI8URu82um1v3/FSaLZsY40NWDdFJXhB0oiZozWgXX5mBCm+tLhuWFbiYl9ajfzwNBhfsHeuWjgE=
