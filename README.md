@@ -6,6 +6,13 @@ An ember-cli addon to provide feature flags.
 ### Note to users of `ember.js` >= 3.1
 Referencing the features service must be done using `get` as it is a proxy.
 
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
+
 ### Installation
 
 ```
