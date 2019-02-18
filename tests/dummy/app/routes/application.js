@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import { get } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Route.extend({
@@ -6,11 +7,19 @@ export default Route.extend({
 
   actions: {
     toggleAcceptanceFeatureOff() {
-      this.get('features').disable('acceptance-feature');
+      const features = get(this, 'features');
+
+      if (features.get('acceptanceFeature')) {
+        features.disable('acceptance-feature');
+      } else {
+        features.enable('acceptance-feature');
+      }
     },
     toggleAcceptanceFeatureSetupOff() {
-      this.get('features').setup({
-        'acceptance-feature': false
+      const features = get(this, 'features');
+
+      features.setup({
+        'acceptance-feature': !features.get('acceptanceFeature')
       });
     }
   }
