@@ -1,75 +1,35 @@
-import { test } from 'qunit';
-import startApp from '../helpers/start-app';
-import moduleForAcceptance from '../../tests/helpers/module-for-acceptance';
-import config from 'dummy/config/environment';
+import { module, test } from 'qunit';
+import { visit, click } from '@ember/test-helpers';
+import { setupApplicationTest } from 'ember-qunit';
+import { enableFeature } from 'ember-feature-flags/test-support';
+import config from "../../config/environment";
 
-let oldFeatureFlags;
+module('Acceptance | feature flags', function(hooks) {
+  setupApplicationTest(hooks);
 
-moduleForAcceptance('Acceptance | feature flags', {
-  beforeEach() {
-    oldFeatureFlags = config.featureFlags;
-  },
-  afterEach() {
-    config.featureFlags = oldFeatureFlags;
-  }
-});
+  test('features are defined in config on featureFlags', async function(assert) {
+    assert.expect(2);
+    config.featureFlags = {
+      'feature-from-config': true
+    };
 
-test('features are defined in config on featureFlags', function(assert) {
-  assert.expect(2);
-  config.featureFlags = {
-    'feature-from-config': true
-  };
-  this.application = startApp();
-  visit('/');
+    await visit('/');
 
-  andThen(function() {
-    assert.equal(find('.feature-from-config-on').length, 1, '.feature-from-config-on should be in dom');
-    assert.equal(find('.feature-from-config-off').length, 0, '.feature-from-config-off should not be in dom');
-  });
-});
-
-test('visiting / with acceptance-feature on', function(assert) {
-  this.application = startApp();
-  withFeature('acceptance-feature');
-  visit('/');
-
-  andThen(function() {
-    assert.equal(find('.acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
-    assert.equal(find('.acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
+    assert.dom('.feature-from-config-on').exists();
+    assert.dom('.feature-from-config-off').doesNotExist();
   });
 
-  click('.test-turn-acceptance-off');
+  test('visiting / with acceptance-feature on', async function(assert) {
+    enableFeature('acceptance-feature');
 
-  andThen(function() {
-    assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
-    assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
-  });
-});
+    await visit('/');
 
-test('visiting / with no features set', function(assert) {
-  this.application = startApp();
-  visit('/');
+    assert.dom('.acceptance-feature-on').exists();
+    assert.dom('.acceptance-feature-off').doesNotExist();
 
-  andThen(function() {
-    assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
-    assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
-  });
-});
+    await click('.test-turn-acceptance-off');
 
-test('visiting / with acceptance-feature on and calling setup properly updates flags', function(assert) {
-  this.application = startApp();
-  withFeature('acceptance-feature');
-  visit('/');
-
-  andThen(function() {
-    assert.equal(find('.acceptance-feature-on').length, 1, 'Acceptance feature on div should be in dom');
-    assert.equal(find('.acceptance-feature-off').length, 0, 'Acceptance feature off div should not be in dom');
-  });
-
-  click('.test-turn-acceptance-setup-off');
-
-  andThen(function() {
-    assert.equal(find('.acceptance-feature-on').length, 0, 'Acceptance feature on div should not be in dom');
-    assert.equal(find('.acceptance-feature-off').length, 1, 'Acceptance feature off div should be in dom');
+    assert.dom('.acceptance-feature-on').doesNotExist();
+    assert.dom('.acceptance-feature-off').exists();
   });
 });
