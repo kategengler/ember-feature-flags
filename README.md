@@ -11,7 +11,6 @@ Compatibility
 ------------------------------------------------------------------------------
 
 * Ember.js v2.18 or above
-* Ember CLI v2.13 or above
 
 ### Installation
 
@@ -185,28 +184,6 @@ module('Acceptance | Awesome page', function(hooks) {
 });
 ```
 
-#### `withFeature`
-
-"Old"-style acceptance tests can utilize `withFeature` test helper to turn on a feature for the test.
-To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your 
-test `.jshintrc`, it will now be available in all of your tests.
-
-Example:
-
-```js
-import 'ember-feature-flags/test-support/helpers/with-feature';
-
-test( "links go to the new homepage", function () {
-  withFeature( 'new-homepage' );
-
-  visit('/');
-  click('a.home');
-  andThen(function(){
-    equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
-  });
-});
-```
-
 ### Integration Tests
 
 If you use `this.features.isEnabled()` in components under integration test, you will need to inject a stub service in your tests. Using ember-qunit 0.4.16 or later, here's how to do this:
@@ -226,8 +203,6 @@ moduleForComponent('my-component', 'Integration | Component | my component', {
   }
 });
 ```
-
-Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill).
 
 ### Development
 
