@@ -1,10 +1,11 @@
 /*eslint-disable no-extra-boolean-cast, no-console */
+import { computed } from '@ember/object';
 import Service from '@ember/service';
 import { camelize } from '@ember/string';
-import { computed } from '@ember/object';
+
+const TRUE_VALUES = [true, 1, "1", "t", "T", "true", "TRUE", "on", "ON"];
 
 export default Service.extend({
-
   init() {
     this._super(...arguments);
     this._flags = Object.create(null);
@@ -57,7 +58,7 @@ export default Service.extend({
 
   _featureIsEnabled(feature) {
     let normalizeFeature = this._normalizeFlag(feature);
-    return this._flags[normalizeFeature] || false;
+    return TRUE_VALUES.includes(this._flags[normalizeFeature]);
   },
 
   _logFeatureFlagMissEnabled() {

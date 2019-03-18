@@ -6,17 +6,72 @@ moduleFor('service:features', 'Unit | Service | features', {
 });
 
 test('isEnabled', function(assert) {
+  assert.expect(20);
+
   let features = this.subject();
+
+  // True values
+
+  features.setup({ 'some-feature': true });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 'true' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 'TRUE' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 1 });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': '1' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 't' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 'T' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 'on' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  features.setup({ 'some-feature': 'ON' });
+  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
+
+  // False values
+
   features.setup(undefined);
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if Features is undefined');
 
   features.setup({});
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if Feature on Features is undefined');
 
-  features.setup({ 'some-feature': true });
-  assert.equal(features.isEnabled('some-feature'), true, 'Feature is true if feature is set to true');
-
   features.setup({ 'some-feature': false });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': 'false' });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': "FALSE" });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': 0 });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': '0' });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': 'f' });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': 'F' });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': "off" });
+  assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
+
+  features.setup({ 'some-feature': "OFF" });
   assert.equal(features.isEnabled('some-feature'), false, 'Feature is false if feature is set to false');
 });
 
