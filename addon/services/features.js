@@ -74,6 +74,13 @@ const FeaturesService = Service.extend({
   }
 });
 
+// Use a native getter instead of a `volatile` computed property since those
+// were deprecated as of Ember 3.9. The Object.defineProperty approach (from
+// https://github.com/emberjs/ember.js/issues/17709#issuecomment-469941364 is
+// used because defining native getters directly on EmberObject-based classes
+// is only supported from Ember 3.9 on (https://github.com/emberjs/ember.js/pull/17710)
+// and this preserves compatiblity until this addon drops support for older
+// Ember versions.
 Object.defineProperty(FeaturesService.prototype, 'flags', {
   get() {
     return Object.keys(this._flags);
