@@ -1,7 +1,7 @@
 
 # ember-feature-flags [![Build Status](https://travis-ci.org/kategengler/ember-feature-flags.svg?branch=master)](https://travis-ci.org/kategengler/ember-feature-flags) [![Ember Observer Score](http://emberobserver.com/badges/ember-feature-flags.svg)](http://emberobserver.com/addons/ember-feature-flags)
 
-An ember-cli addon to provide feature flags. 
+An ember-cli addon to provide feature flags.
 
 ### Note to users of `ember.js` >= 3.1
 Referencing the features service must be done using `get` as it is a proxy.
@@ -22,7 +22,7 @@ For example you may check if a feature is enabled:
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 export default Controller.extend({
-  features: service(), 
+  features: service(),
   plans() {
     if (this.get('features').isEnabled('new-billing-plans')) {
       // Return new plans
@@ -40,7 +40,7 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 export default Controller.extend({
-  features: service(), 
+  features: service(),
   plans: computed('features.newBillingPlans', function(){
     if (this.get('features.newBillingPlans')) {
       // Return new plans
@@ -80,7 +80,7 @@ Alternatively you can use a template helper named `feature-flag`:
 {{else}}
   {{link-to "old.homepage"}}
 {{/if}}
-``` 
+```
 
 Features can be toggled at runtime, and are bound:
 
@@ -169,7 +169,7 @@ module('Acceptance | Awesome page', function(hooks) {
 
   test('links go to the new homepage', async function (assert) {
     enableFeature('new-homepage');
-  
+
     await visit('/');
     await click('a.home');
 
@@ -181,7 +181,7 @@ module('Acceptance | Awesome page', function(hooks) {
 #### `withFeature`
 
 "Old"-style acceptance tests can utilize `withFeature` test helper to turn on a feature for the test.
-To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your 
+To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your
 test `.jshintrc`, it will now be available in all of your tests.
 
 Example:
