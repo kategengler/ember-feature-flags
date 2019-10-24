@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v6.0.0 (2019-10-23)
+
+#### :boom: Breaking Change
+* [#84](https://github.com/kategengler/ember-feature-flags/pull/84) Drop support for Node versions < 8
+
+#### :bug: Bug Fix
+* [#83](https://github.com/kategengler/ember-feature-flags/pull/83) Fix deprecation warning for computed.volatile
+
 ## v5.0.0 (2018-02-27)
 
 #### :boom: Breaking Change :bug: Bug Fix
