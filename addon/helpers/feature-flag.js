@@ -5,6 +5,6 @@ export default Helper.extend({
   features: service(),
 
   compute([flag]) {
-    return this.features.get(flag)
+    return this.get('features').get(flag)
   },
 });
