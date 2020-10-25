@@ -71,4 +71,27 @@ module('Integration | Helper | feature-flag', function(hooks) {
 
     assert.equal(this.element.textContent.trim(), 'Some text');
   });
+
+  test('it recomputes when flag reference changes', async function(assert) {
+    this.features.setup({
+      someFeatureA: false,
+      someFeatureB: true,
+    });
+
+    this.set('currentFlag', 'someFeatureA');
+
+    await render(hbs`
+      {{#if (feature-flag this.currentFlag)}}
+        Some text
+      {{else}}
+        Some other text
+      {{/if}}
+    `);
+
+    assert.equal(this.element.textContent.trim(), 'Some other text');
+
+    this.set('currentFlag', 'someFeatureB');
+
+    assert.equal(this.element.textContent.trim(), 'Some text');
+  });
 });
