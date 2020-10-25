@@ -176,6 +176,8 @@ module('Acceptance | Awesome page', function(hooks) {
 
     disableFeature('new-welcome-message');
 
+    await settled();
+
     assert.dom('h1.welcome-message').hasText('This is our old website, upgrade coming soon');
   });
 });
