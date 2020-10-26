@@ -5,3 +5,5 @@ export function enableFeature(featureName) {
   let { owner } = getContext();
   _enableFeature(owner, featureName);
 }
+
+export { _disableFeature as disableFeature } from './-private/disable-feature';

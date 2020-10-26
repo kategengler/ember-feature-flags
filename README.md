@@ -155,25 +155,30 @@ wondering why your feature is not working.
 
 ### Test Helpers
 
-#### `enableFeature`
+#### `enableFeature` / `disableFeature`
 
-Turns on a feature for the test in which it is called.
+Turns on or off a feature for the test in which it is called.
 Requires ember-cli-qunit >= 4.1.0 and the newer style of tests that use `setupTest`, `setupRenderingTest`, `setupApplicationTest`.
 
 Example:
 ```js
-import { enableFeature } from 'ember-feature-flags/test-support';
+import { enableFeature, disableFeature } from 'ember-feature-flags/test-support';
 
 module('Acceptance | Awesome page', function(hooks) {
   setupApplicationTest(hooks);
 
-  test('links go to the new homepage', async function (assert) {
-    enableFeature('new-homepage');
+  test('it displays the expected welcome message', async function (assert) {
+    enableFeature('new-welcome-message');
 
     await visit('/');
-    await click('a.home');
 
-    assert.equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
+    assert.dom('h1.welcome-message').hasText('Welcome to the new website!');
+
+    disableFeature('new-welcome-message');
+
+    await settled();
+
+    assert.dom('h1.welcome-message').hasText('This is our old website, upgrade coming soon');
   });
 });
 ```

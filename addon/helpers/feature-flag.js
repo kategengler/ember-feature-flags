@@ -5,6 +5,7 @@ import { camelize } from '@ember/string';
 export default Helper.extend({
   features: service(),
 
+  /* eslint-disable ember/no-observers */
   compute([flag]) {
     if (this._observedFlag) {
       this.get('features').removeObserver(this._observedFlag, this, 'recompute');
@@ -25,4 +26,5 @@ export default Helper.extend({
       this.get('features').removeObserver(this._observedFlag, this, 'recompute');
     }
   }
+  /* eslint-enable ember/no-observers */
 });
