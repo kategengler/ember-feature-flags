@@ -18,6 +18,23 @@ This addon provides a service named `features` available for injection into your
 
 For example you may check if a feature is enabled:
 
+**Native class syntax:**
+```js
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+export default class BillingPlansController extends Controller {
+  @service features;
+  get plans() {
+    if (this.features.isEnabled('newBillingPlans')) {
+      // Return new plans
+    } else {
+      // Return old plans
+    }
+  }
+}
+```
+
+**Classic Ember syntax:**
 ```js
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
@@ -35,6 +52,22 @@ export default Controller.extend({
 
 Features are also available as properties of `features`. They are camelized.
 
+**Native class syntax:**
+```js
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+export default class BillingPlansController extends Controller {
+  @service features;
+  get plans() {
+    if (this.features.get('newBillingPlans')) {
+      // Return new plans
+    } else {
+      // Return old plans
+    }
+  }
+}
+```
+**Classic Ember syntax:**
 ```js
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
@@ -64,6 +97,14 @@ Check whether a feature is enabled in a template (be sure to inject the features
 
 *NOTE:* `features` service must be injected into the respective component:
 
+**Native class syntax:**
+```js
+export default class ExampleComponent extends Component {
+  @service features;
+}
+```
+
+**Classic Ember syntax:**
 ```js
 // components/homepage-link.js
 export default Component.extend({
@@ -84,13 +125,28 @@ Alternatively you can use a template helper named `feature-flag`:
 
 Features can be toggled at runtime, and are bound:
 
+**Native class syntax:**
+```js
+  this.features.enable('newHomepage');
+  this.features.disable('newHomepage');
+```
+
+**Classic Ember syntax:**
 ```js
 this.get('features').enable('newHomepage');
 this.get('features').disable('newHomepage');
 ```
 
 Features can be set in bulk:
+**Native class syntax:**
+```js
+this.features.setup({
+  "new-billing-plans": true,
+  "new-homepage": false
+})
+```
 
+**Classic Ember syntax:**
 ```js
 this.get('features').setup({
   "new-billing-plans": true,
