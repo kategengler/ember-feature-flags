@@ -138,6 +138,7 @@ this.get('features').disable('newHomepage');
 ```
 
 Features can be set in bulk:
+
 **Native class syntax:**
 ```js
 this.features.setup({
