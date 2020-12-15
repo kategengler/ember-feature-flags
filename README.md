@@ -99,7 +99,8 @@ Check whether a feature is enabled in a template (be sure to inject the features
 
 **Native class syntax:**
 ```js
-export default class ExampleComponent extends Component {
+// components/homepage-link.js
+export default class HomepageLink extends Component {
   @service features;
 }
 ```
