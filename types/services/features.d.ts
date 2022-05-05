@@ -72,7 +72,7 @@ export default interface Features extends Omit<Service, "get"> {
    */
   get<K extends Keys>(key: K): boolean;
 
-  flags: Keys;
+  flags: Keys[];
 }
 
 /**

@@ -5,6 +5,7 @@ import {
   enableFeature,
   disableFeature,
 } from "ember-feature-flags/test-support";
+import FeatureFlag from "ember-feature-flags/helpers/feature-flag";
 
 // side-effect import for `withFeature`
 import "ember-feature-flags/test-support/helpers/with-feature";
