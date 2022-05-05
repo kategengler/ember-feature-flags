@@ -18,3 +18,7 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+
+# don't bother linting types and type tests
+types
+type-tests
