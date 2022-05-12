@@ -55,10 +55,11 @@ jobs:
         scenario:
           - ember-lts-3.4
           - ember-lts-3.8
-          # These are the 3.x LTS's we should *add*
-          # - ember-lts-3.24
+          - ember-lts-3.12
+          - ember-lts-3.16
+          - ember-lts-3.20
+          - ember-lts-3.24
           # - ember-lts-3.28
-          # currently failing b/c they're on Ember v4
           # - ember-release
           # - ember-beta
           # - ember-canary
