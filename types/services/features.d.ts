@@ -40,10 +40,10 @@ export default interface Features extends Omit<Service, "get"> {
   setup(config: AllowedConfig): void;
 
   /** Enable a feature at runtime. */
-  enable<K extends Keys>(key: K, value: boolean): void;
+  enable<K extends Keys>(key: K): void;
 
   /** Disable a feature at runtime. */
-  disable<K extends Keys>(key: K, value: boolean): void;
+  disable<K extends Keys>(key: K): void;
 
   /** Check if a feature is enabled. */
   isEnabled<K extends Keys>(key: K): boolean;
