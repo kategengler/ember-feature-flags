@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^1.0.0",
+    "@types/ember__component": "^4.0.8",
+    "@types/ember__service": "^4.0.0",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
     "ember-cli": "~3.13.1",
@@ -39,9 +41,11 @@
     "ember-try": "^1.2.1",
     "eslint-plugin-ember": "^7.1.0",
     "eslint-plugin-node": "^10.0.0",
+    "expect-type": "^0.13.0",
     "lerna-changelog": "^0.8.2",
     "loader.js": "^4.7.0",
-    "qunit-dom": "^0.9.0"
+    "qunit-dom": "^0.9.0",
+    "typescript": "^4.6.4"
   },
   "keywords": [
     "ember-addon",
@@ -76,6 +80,13 @@
       "bug": ":bug: Bug Fix",
       "documentation": ":memo: Documentation",
       "internal": ":house: Internal"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "types/*"
+      ]
     }
   }
 }
