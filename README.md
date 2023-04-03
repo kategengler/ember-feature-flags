@@ -1,12 +1,21 @@
-
 # ember-feature-flags [![Build Status](https://travis-ci.org/kategengler/ember-feature-flags.svg?branch=master)](https://travis-ci.org/kategengler/ember-feature-flags) [![Ember Observer Score](http://emberobserver.com/badges/ember-feature-flags.svg)](http://emberobserver.com/addons/ember-feature-flags)
 
 An ember-cli addon to provide feature flags.
 
-### Note to users of `ember.js` >= 3.1
-Referencing the features service must be done using `get` as it is a proxy.
+## Compatibility
 
-### Installation
+- Ember.js v3.28 or above
+- Ember CLI v3.28 or above
+- Node.js v14 or above
+
+### V7.0.0
+
+Uses Ember Octane syntax and ES6 classes. This means:
+
+1. `get` and `set` will no longer work and that feature flags are no longer available as properties of the `features` service. If you had computed properties relying on this they will break. It will no longer throw errors if you set an unknown property.
+2. You will need to switch to using the API methods `enable`, `disable` and `isEnabled`. In templates you can use the `{{feature-flag}}` helper.
+
+## Installation
 
 ```
 ember install ember-feature-flags
@@ -14,11 +23,19 @@ ember install ember-feature-flags
 
 ### Usage
 
-This addon provides a service named `features` available for injection into your routes, controllers, components, etc.
+This addon provides a service named `features` available for injection into your routes, controllers, components, etc. Internally, flag names are converted to camel-case so:
 
-For example you may check if a feature is enabled:
+```js
+features.isEnabled('newBillingPlans');
+features.isEnabled('new-billing-plans');
+```
+
+are the same.
+
+For example you may check if a feature is enabled. Inject the service into the controller or component as required.
 
 **Native class syntax:**
+
 ```js
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
@@ -35,6 +52,7 @@ export default class BillingPlansController extends Controller {
 ```
 
 **Classic Ember syntax:**
+
 ```js
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
@@ -46,113 +64,47 @@ export default Controller.extend({
     } else {
       // Return old plans
     }
-  }
+  },
 });
 ```
 
-Features are also available as properties of `features`. They are camelized.
-
-**Native class syntax:**
-```js
-import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
-export default class BillingPlansController extends Controller {
-  @service features;
-  get plans() {
-    if (this.features.get('newBillingPlans')) {
-      // Return new plans
-    } else {
-      // Return old plans
-    }
-  }
-}
-```
-**Classic Ember syntax:**
-```js
-import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-export default Controller.extend({
-  features: service(),
-  plans: computed('features.newBillingPlans', function(){
-    if (this.get('features.newBillingPlans')) {
-      // Return new plans
-    } else {
-      // Return old plans
-    }
-  })
-});
-```
-
-Check whether a feature is enabled in a template (be sure to inject the features service into the template's backing JavaScript):
+Check whether a feature is enabled in a template by using the `feature-flag` template helper:
 
 ```hbs
 // templates/components/homepage-link.hbs
-{{#if features.newHomepage}}
-  {{link-to "new.homepage"}}
+{{#if (feature-flag 'new-homepage')}}
+  {{link-to 'new.homepage'}}
 {{else}}
-  {{link-to "old.homepage"}}
+  {{link-to 'old.homepage'}}
 {{/if}}
 ```
 
-*NOTE:* `features` service must be injected into the respective component:
+Features can be toggled at runtime, and are tracked:
 
 **Native class syntax:**
+
 ```js
-// components/homepage-link.js
-export default class HomepageLink extends Component {
-  @service features;
-}
-```
-
-**Classic Ember syntax:**
-```js
-// components/homepage-link.js
-export default Component.extend({
-  features: service()
-});
-```
-
-Alternatively you can use a template helper named `feature-flag`:
-
-```hbs
-// templates/components/homepage-link.hbs
-{{#if (feature-flag 'newHomepage')}}
-  {{link-to "new.homepage"}}
-{{else}}
-  {{link-to "old.homepage"}}
-{{/if}}
-```
-
-Features can be toggled at runtime, and are bound:
-
-**Native class syntax:**
-```js
-  this.features.enable('newHomepage');
-  this.features.disable('newHomepage');
-```
-
-**Classic Ember syntax:**
-```js
-this.get('features').enable('newHomepage');
-this.get('features').disable('newHomepage');
+this.features.enable('newHomepage');
+this.features.disable('newHomepage');
 ```
 
 Features can be set in bulk:
 
 **Native class syntax:**
+
 ```js
 this.features.setup({
-  "new-billing-plans": true,
-  "new-homepage": false
-})
+  'new-billing-plans': true,
+  'new-homepage': false,
+});
 ```
 
 **Classic Ember syntax:**
+
 ```js
 this.get('features').setup({
-  "new-billing-plans": true,
-  "new-homepage": false
+  'new-billing-plans': true,
+  'new-homepage': false,
 });
 ```
 
@@ -160,7 +112,7 @@ You may want to set the flags based on the result of a fetch:
 
 ```js
 // routes/application.js
-features: inject(),
+@service features;
 beforeModel() {
    return fetch('/my-flag/api').then((data) => {
      features.setup(data.json());
@@ -168,18 +120,18 @@ beforeModel() {
 }
 ```
 
-*NOTE:* `setup` methods reset previously setup flags and their state.
+_NOTE:_ `setup` methods reset previously setup flags and their state.
 
 You can get list of known feature flags via `flags` computed property:
+
 ```js
-this.get('features').setup({
-  "new-billing-plans": true,
-  "new-homepage": false
+this.features.setup({
+  'new-billing-plans': true,
+  'new-homepage': false,
 });
 
-this.get('features.flags') // ['newBillingPlans', 'newHomepage']
+this.features.flags; // ['newBillingPlans', 'newHomepage']
 ```
-
 
 ### Configuration
 
@@ -190,12 +142,12 @@ is an easy way to change settings for a given environment. For example:
 
 ```javascript
 // config/environment.js
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     featureFlags: {
       'show-spinners': true,
-      'download-cats': false
-    }
+      'download-cats': false,
+    },
   };
 
   if (environment === 'production') {
@@ -219,10 +171,14 @@ Turns on or off a feature for the test in which it is called.
 Requires ember-cli-qunit >= 4.1.0 and the newer style of tests that use `setupTest`, `setupRenderingTest`, `setupApplicationTest`.
 
 Example:
-```js
-import { enableFeature, disableFeature } from 'ember-feature-flags/test-support';
 
-module('Acceptance | Awesome page', function(hooks) {
+```js
+import {
+  enableFeature,
+  disableFeature,
+} from 'ember-feature-flags/test-support';
+
+module('Acceptance | Awesome page', function (hooks) {
   setupApplicationTest(hooks);
 
   test('it displays the expected welcome message', async function (assert) {
@@ -234,9 +190,9 @@ module('Acceptance | Awesome page', function(hooks) {
 
     disableFeature('new-welcome-message');
 
-    await settled();
-
-    assert.dom('h1.welcome-message').hasText('This is our old website, upgrade coming soon');
+    assert
+      .dom('h1.welcome-message')
+      .hasText('This is our old website, upgrade coming soon');
   });
 });
 ```
@@ -252,12 +208,12 @@ Example:
 ```js
 import 'ember-feature-flags/test-support/helpers/with-feature';
 
-test( "links go to the new homepage", function () {
-  withFeature( 'new-homepage' );
+test('links go to the new homepage', function () {
+  withFeature('new-homepage');
 
   visit('/');
   click('a.home');
-  andThen(function(){
+  andThen(function () {
     equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
   });
 });
@@ -271,7 +227,7 @@ If you use `this.features.isEnabled()` in components under integration test, you
 let featuresService = Service.extend({
   isEnabled() {
     return false;
-  }
+  },
 });
 
 moduleForComponent('my-component', 'Integration | Component | my component', {
@@ -279,31 +235,29 @@ moduleForComponent('my-component', 'Integration | Component | my component', {
   beforeEach() {
     this.register('service:features', featuresService);
     getOwner(this).inject('component', 'features', 'service:features');
-  }
+  },
 });
 ```
-
-Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill).
 
 ### Development
 
 #### Installation
 
-* `git clone` this repository
-* cd ember-feature-flags`
-* `yarn install`
+- `git clone` this repository
+- cd ember-feature-flags`
+- `yarn install`
 
 #### Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+- `ember serve`
+- Visit your app at [http://localhost:4200](http://localhost:4200).
 
 #### Running Tests
 
-* `ember try:each` (Test against multiple ember versions)
-* `ember test`
-* `ember test --server`
+- `ember try:each` (Test against multiple ember versions)
+- `ember test`
+- `ember test --server`
 
 #### Deploying
 
-* See RELEASE.md
+- See RELEASE.md
