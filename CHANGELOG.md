@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## v6.1.0 (2025-02-11)
+
+#### :boom: Deprecations
+* [#129](https://github.com/kategengler/ember-feature-flags/pull/129) Deprecate features that will be removed in 7.0 to facilitate modernization ([@kategengler](https://github.com/kategengler))
+  * Deprecate withFeature test helper from old-style Ember tests
+  * Deprecate the proxy behavior of the features service. In 7.0,
+    `features.myFeature` and `features.get('myFeature')` will no longer
+    work. Use `isEnabled` and the `{{feature-flag}}` template helper
+    instead.
+
+#### :rocket: Enhancement
+* [#97](https://github.com/kategengler/ember-feature-flags/pull/97) Add `disableFeature` test helper ([@Techn1x](https://github.com/Techn1x))
+
+#### :memo: Documentation
+* [#103](https://github.com/kategengler/ember-feature-flags/pull/103) Update docs examples ([@jeffdaley](https://github.com/jeffdaley))
+
+#### :house: Internal
+* [#123](https://github.com/kategengler/ember-feature-flags/pull/123) CI: fix linting and add missing scenarios to compat tests  ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#120](https://github.com/kategengler/ember-feature-flags/pull/120) Introduce GitHub Actions config ([@chriskrycho](https://github.com/chriskrycho))
+
+#### Committers: 5
+- Brad Overton ([@Techn1x](https://github.com/Techn1x))
+- Chris Krycho ([@chriskrycho](https://github.com/chriskrycho))
+- Jeff Daley ([@jeffdaley](https://github.com/jeffdaley))
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
 ## v6.0.0 (2019-10-23)
 
 #### :boom: Breaking Change
