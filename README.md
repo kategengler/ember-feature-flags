@@ -18,7 +18,6 @@ This addon provides a service named `features` available for injection into your
 
 For example you may check if a feature is enabled:
 
-**Native class syntax:**
 ```js
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
@@ -34,86 +33,7 @@ export default class BillingPlansController extends Controller {
 }
 ```
 
-**Classic Ember syntax:**
-```js
-import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
-export default Controller.extend({
-  features: service(),
-  plans() {
-    if (this.get('features').isEnabled('new-billing-plans')) {
-      // Return new plans
-    } else {
-      // Return old plans
-    }
-  }
-});
-```
-
-Features are also available as properties of `features`. They are camelized.
-
-**Native class syntax:**
-```js
-import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
-export default class BillingPlansController extends Controller {
-  @service features;
-  get plans() {
-    if (this.features.get('newBillingPlans')) {
-      // Return new plans
-    } else {
-      // Return old plans
-    }
-  }
-}
-```
-**Classic Ember syntax:**
-```js
-import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-export default Controller.extend({
-  features: service(),
-  plans: computed('features.newBillingPlans', function(){
-    if (this.get('features.newBillingPlans')) {
-      // Return new plans
-    } else {
-      // Return old plans
-    }
-  })
-});
-```
-
-Check whether a feature is enabled in a template (be sure to inject the features service into the template's backing JavaScript):
-
-```hbs
-// templates/components/homepage-link.hbs
-{{#if features.newHomepage}}
-  {{link-to "new.homepage"}}
-{{else}}
-  {{link-to "old.homepage"}}
-{{/if}}
-```
-
-*NOTE:* `features` service must be injected into the respective component:
-
-**Native class syntax:**
-```js
-// components/homepage-link.js
-export default class HomepageLink extends Component {
-  @service features;
-}
-```
-
-**Classic Ember syntax:**
-```js
-// components/homepage-link.js
-export default Component.extend({
-  features: service()
-});
-```
-
-Alternatively you can use a template helper named `feature-flag`:
+Check whether a feature is enabled in a template by using the `feature-flag` template helper:
 
 ```hbs
 // templates/components/homepage-link.hbs
@@ -126,21 +46,13 @@ Alternatively you can use a template helper named `feature-flag`:
 
 Features can be toggled at runtime, and are bound:
 
-**Native class syntax:**
 ```js
   this.features.enable('newHomepage');
   this.features.disable('newHomepage');
 ```
 
-**Classic Ember syntax:**
-```js
-this.get('features').enable('newHomepage');
-this.get('features').disable('newHomepage');
-```
+Features can be set in bulk, resetting all existing features:
 
-Features can be set in bulk:
-
-**Native class syntax:**
 ```js
 this.features.setup({
   "new-billing-plans": true,
@@ -148,19 +60,11 @@ this.features.setup({
 })
 ```
 
-**Classic Ember syntax:**
-```js
-this.get('features').setup({
-  "new-billing-plans": true,
-  "new-homepage": false
-});
-```
-
 You may want to set the flags based on the result of a fetch:
 
 ```js
 // routes/application.js
-features: inject(),
+@service features;
 beforeModel() {
    return fetch('/my-flag/api').then((data) => {
      features.setup(data.json());
@@ -237,28 +141,6 @@ module('Acceptance | Awesome page', function(hooks) {
     await settled();
 
     assert.dom('h1.welcome-message').hasText('This is our old website, upgrade coming soon');
-  });
-});
-```
-
-#### `withFeature`
-
-"Old"-style acceptance tests can utilize `withFeature` test helper to turn on a feature for the test.
-To use, import into your test-helper.js: `import 'ember-feature-flags/test-support/helpers/with-feature'` and add to your
-test `.jshintrc`, it will now be available in all of your tests.
-
-Example:
-
-```js
-import 'ember-feature-flags/test-support/helpers/with-feature';
-
-test( "links go to the new homepage", function () {
-  withFeature( 'new-homepage' );
-
-  visit('/');
-  click('a.home');
-  andThen(function(){
-    equal(currentRoute(), 'new.homepage', 'Should be on the new homepage');
   });
 });
 ```

@@ -1,5 +1,6 @@
 /*eslint-disable no-extra-boolean-cast, no-console */
 import Service from '@ember/service';
+import { deprecate } from '@ember/debug';
 import { camelize } from '@ember/string';
 
 const FeaturesService = Service.extend({
@@ -70,6 +71,18 @@ const FeaturesService = Service.extend({
   },
 
   unknownProperty(key) {
+    deprecate(
+      `Referencing \`features.get('${key}')\` or \`features.${key}\` directly is deprecated. Please use \`features.isEnabled('${key}')\` or the \`{{feature-flag '${key}'}}\` helper instead.`,
+      false,
+      {
+        id: 'ember-feature-flags.unknown-property',
+        until: '7.0.0',
+        for: 'ember-feature-flags',
+        since: {
+          enabled: '6.1.0'
+        }
+      }
+    );
     return this.isEnabled(key);
   }
 });
