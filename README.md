@@ -167,6 +167,68 @@ moduleForComponent('my-component', 'Integration | Component | my component', {
 
 Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https://github.com/rwjblue/ember-getowner-polyfill).
 
+### TypeScript
+
+The library ships with full support for TypeScript usage with the service, helper, and test helpers. The API described above works as expected, with one additional nicety and one caveat.
+
+**Nicety:** the library provides you the ability to define statically your known feature flags by using a *registry* (as you may be familiar with from the registries for Ember's services, Ember Data models, etc.).  If you define your keys (in kebab case!) in a registry like this:
+
+```ts
+// types/index.d.ts, with other types defined for your app
+
+
+declare module 'ember-feature-flags/services/features' {
+  export interface FeaturesRegistry {
+    'feature-a': boolean;
+    'feature-b': boolean;
+  }
+}
+```
+
+Then in your app code, you will get type checking: TS will require you to use one of those keys (or a camel case variant of it), and reject unknown keys.
+
+```ts
+import Component from '@glimmer/component';
+import { service } from '@ember/service';
+import type Features from 'ember-feature-flags/services/features';
+
+export default class Example extends Component {
+  @service declare features: Features;
+
+  get shouldDoSomething() {
+    return this.features.isEnabled('feature-a'); // ✅
+  }
+
+  get whoops() {
+    return this.features.isEnabled('not-a-real-feature'); // ❌
+  }
+}
+```
+
+This applies to all the values. If you do *not* add any keys to the `FeatureFlags` interface, the types will fall back to simply allowing any string and returning a boolean value.
+
+**Caveat:** The runtime uses Ember's `unknownProperty` proxy handling to allow direct access on the service itself with the `get` helper. This allows you to access the features directly in a template:
+
+```hbs
+{{#if this.features.featureA}}
+  {{! ... }}
+{{/if}}
+```
+
+For [Glint](https://github.com/typed-ember/glint), this is impossible to support in a way which would not *also* suggest that you could write `this.features.featureA` in your TypeScript code. Doing that will always return `undefined` until we are able to update the library to use native proxies instead of Ember's `unknownProperty()` method. The `feature-flag` helper does *not* have this restriction, so you should prefer that instead. If you still want to use the service directly instead of using the helper, you can use `get`:
+
+```hbs
+{{#if (get this.features 'featureA')}}
+  {{! ... }}
+{{/if}}
+```
+
+This will *not* provide autocomplete or type safety, but will work.
+
+#### Stability
+
+This library provides type definitions and follows the current draft of the [Semantic Versioning for TypeScript Types](https://www.semver-ts.org) specification. The public API is all published types. It currently supports TypeScript 4.4, 4.5, and 4.6.
+
 ### Development
 
 #### Installation
