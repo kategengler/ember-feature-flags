@@ -1,16 +1,17 @@
-/*eslint-disable no-extra-boolean-cast, no-console */
+/*eslint-disable no-extra-boolean-cast */
 import Service from '@ember/service';
 import { deprecate } from '@ember/debug';
 import { camelize } from '@ember/string';
 
 const FeaturesService = Service.extend({
-
   init() {
     this._super(...arguments);
     this._flags = Object.create(null);
 
-    this.setUnknownProperty = function(key) {
-      throw new Error(`Please use enable/disable to set feature flags. You attempted to set ${key}`);
+    this.setUnknownProperty = function (key) {
+      throw new Error(
+        `Please use enable/disable to set feature flags. You attempted to set ${key}`,
+      );
     };
   },
 
@@ -79,12 +80,12 @@ const FeaturesService = Service.extend({
         until: '7.0.0',
         for: 'ember-feature-flags',
         since: {
-          enabled: '6.1.0'
-        }
-      }
+          enabled: '6.1.0',
+        },
+      },
     );
     return this.isEnabled(key);
-  }
+  },
 });
 
 // Use a native getter instead of a `volatile` computed property since those
@@ -97,7 +98,7 @@ const FeaturesService = Service.extend({
 Object.defineProperty(FeaturesService.prototype, 'flags', {
   get() {
     return Object.keys(this._flags);
-  }
+  },
 });
 
 export default FeaturesService;

@@ -9,6 +9,5 @@ export default Features.extend({
     if (config.featureFlags) {
       this.setup(config.featureFlags);
     }
-  }
-
+  },
 });

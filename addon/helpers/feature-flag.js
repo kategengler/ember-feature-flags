@@ -8,23 +8,23 @@ export default Helper.extend({
   /* eslint-disable ember/no-observers */
   compute([flag]) {
     if (this._observedFlag) {
-      this.get('features').removeObserver(this._observedFlag, this, 'recompute');
+      this.features.removeObserver(this._observedFlag, this, 'recompute');
     }
 
     this.set('_observedFlag', camelize(flag));
-    this.get('features').addObserver(this._observedFlag, this, 'recompute');
+    this.features.addObserver(this._observedFlag, this, 'recompute');
 
-    return this.get('features').isEnabled(flag);
+    return this.features.isEnabled(flag);
   },
 
   _observedFlag: null,
 
-  willDestroy () {
+  willDestroy() {
     this._super(...arguments);
 
     if (this._observedFlag) {
-      this.get('features').removeObserver(this._observedFlag, this, 'recompute');
+      this.features.removeObserver(this._observedFlag, this, 'recompute');
     }
-  }
+  },
   /* eslint-enable ember/no-observers */
 });

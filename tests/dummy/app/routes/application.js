@@ -1,17 +1,16 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
-export default Route.extend({
-  features: service(),
+export default class ApplicationRoute extends Route {
+  @service features;
 
-  actions: {
-    toggleAcceptanceFeatureOff() {
-      this.get('features').disable('acceptance-feature');
-    },
-    toggleAcceptanceFeatureSetupOff() {
-      this.get('features').setup({
-        'acceptance-feature': false
-      });
-    }
+  toggleAcceptanceFeatureOff() {
+    this.features.disable('acceptance-feature');
   }
-});
+
+  toggleAcceptanceFeatureSetupOff() {
+    this.features.setup({
+      'acceptance-feature': false,
+    });
+  }
+}
