@@ -87,6 +87,8 @@ export default [
       '.stylelintrc.js',
       '.template-lintrc.js',
       'ember-cli-build.js',
+      'tests/dummy/config/**/*.js',
+      'index.js',
     ],
     plugins: {
       n,
