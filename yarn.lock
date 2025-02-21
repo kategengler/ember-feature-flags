@@ -1068,6 +1068,11 @@
     mkdirp "^1.0.4"
     silent-error "^1.1.1"
 
+"@ember/string@^4.0.0":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@ember/string/-/string-4.0.1.tgz#2c9d3f749bad92567e99ab5b8d4fdb5ed7f0ff0c"
+  integrity sha512-VWeng8BSWrIsdPfffOQt/bKwNKJL7+37gPFh/6iZZ9bke+S83kKqkS30poo4bTGfRcMnvAE0ie7txom+iDu81Q==
+
 "@ember/test-helpers@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@ember/test-helpers/-/test-helpers-4.0.5.tgz#728f0a1a4f7c74c8ed1c2658811be6661cf321ee"

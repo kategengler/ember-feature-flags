@@ -1,8 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
-import { render } from '@ember/test-helpers';
-import { run } from '@ember/runloop';
+import { hbs } from 'ember-cli-htmlbars';
+import { render, settled } from '@ember/test-helpers';
 
 module('Integration | Helper | feature-flag', function (hooks) {
   setupRenderingTest(hooks);
@@ -19,7 +18,7 @@ module('Integration | Helper | feature-flag', function (hooks) {
       {{/if}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'Some text');
+    assert.dom(this.element).hasText('Some text');
   });
 
   test('it renders block invocation with disabled flag', async function (assert) {
@@ -33,7 +32,7 @@ module('Integration | Helper | feature-flag', function (hooks) {
       {{/if}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'Some other text');
+    assert.dom(this.element).hasText('Some other text');
   });
 
   test('it renders block invocation with unknown flag', async function (assert) {
@@ -49,7 +48,7 @@ module('Integration | Helper | feature-flag', function (hooks) {
       {{/if}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'Some other text');
+    assert.dom(this.element).hasText('Some other text');
   });
 
   test('it recomputes when flag status changes', async function (assert) {
@@ -65,10 +64,12 @@ module('Integration | Helper | feature-flag', function (hooks) {
       {{/if}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'Some other text');
+    assert.dom(this.element).hasText('Some other text');
 
-    run(() => this.features.enable('someFeature'));
+    this.features.enable('someFeature');
 
-    assert.equal(this.element.textContent.trim(), 'Some text');
+    await settled();
+
+    assert.dom(this.element).hasText('Some text');
   });
 });

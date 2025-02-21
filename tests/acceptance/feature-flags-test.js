@@ -8,7 +8,7 @@ import {
 import config from 'dummy/config/environment';
 
 module(
-  'Acceptance | feature flags with new-style acceptance tests',
+  'Acceptance | feature flags',
   function (hooks) {
     setupApplicationTest(hooks);
 
