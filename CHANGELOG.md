@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Release (2025-02-22)
+
+ember-feature-flags 7.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-feature-flags`
+  * [#131](https://github.com/kategengler/ember-feature-flags/pull/131) Upgrade and modernize ember-feature-flags ([@kategengler](https://github.com/kategengler))
+
+#### Committers: 1
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+
 ## v6.1.0 (2025-02-11)
 
 #### :boom: Deprecations

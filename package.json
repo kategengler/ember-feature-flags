@@ -1,6 +1,6 @@
 {
   "name": "ember-feature-flags",
-  "version": "6.1.0",
+  "version": "7.0.0",
   "description": "Feature flags/toggles for Ember apps",
   "keywords": [
     "ember-addon",

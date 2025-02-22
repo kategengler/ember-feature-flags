@@ -1,0 +1,17 @@
+{
+  "solution": {
+    "ember-feature-flags": {
+      "impact": "major",
+      "oldVersion": "6.1.0",
+      "newVersion": "7.0.0",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
+    }
+  },
+  "description": "## Release (2025-02-22)\n\nember-feature-flags 7.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-feature-flags`\n  * [#131](https://github.com/kategengler/ember-feature-flags/pull/131) Upgrade and modernize ember-feature-flags ([@kategengler](https://github.com/kategengler))\n\n#### Committers: 1\n- Katie Gengler ([@kategengler](https://github.com/kategengler))\n"
+}
