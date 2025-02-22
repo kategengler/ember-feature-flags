@@ -3,8 +3,11 @@
 
 An ember-cli addon to provide feature flags.
 
-### Note to users of `ember.js` >= 3.1
-Referencing the features service must be done using `get` as it is a proxy.
+### Versions
+
+Tested against `ember-source` v4.12, v5.8, v5.12, v6.2, canary and beta. 
+
+For support for earlier `ember-source` use `ember-feature-flags@6.1.0`. 
 
 ### Installation
 
