@@ -1,23 +1,19 @@
-/*eslint-disable no-extra-boolean-cast, no-console */
+/*eslint-disable no-extra-boolean-cast */
 import Service from '@ember/service';
-import { deprecate } from '@ember/debug';
 import { camelize } from '@ember/string';
+import { TrackedMap } from 'tracked-built-ins';
 
-const FeaturesService = Service.extend({
+export default class FeaturesService extends Service {
+  _flags = new TrackedMap();
 
-  init() {
-    this._super(...arguments);
-    this._flags = Object.create(null);
-
-    this.setUnknownProperty = function(key) {
-      throw new Error(`Please use enable/disable to set feature flags. You attempted to set ${key}`);
-    };
-  },
+  get flags() {
+    return Array.from(this._flags.keys());
+  }
 
   setup(flags) {
     this._resetFlags();
     for (let flag in flags) {
-      if (flags.hasOwnProperty(flag)) {
+      if (Object.prototype.hasOwnProperty.call(flags, flag)) {
         if (!!flags[flag]) {
           this.enable(flag);
         } else {
@@ -25,19 +21,17 @@ const FeaturesService = Service.extend({
         }
       }
     }
-  },
+  }
 
   enable(flag) {
     let normalizedFlag = this._normalizeFlag(flag);
-    this._flags[normalizedFlag] = true;
-    this.notifyPropertyChange(normalizedFlag);
-  },
+    this._flags.set(normalizedFlag, true);
+  }
 
   disable(flag) {
     let normalizedFlag = this._normalizeFlag(flag);
-    this._flags[normalizedFlag] = false;
-    this.notifyPropertyChange(normalizedFlag);
-  },
+    this._flags.set(normalizedFlag, false);
+  }
 
   isEnabled(feature) {
     let isEnabled = this._featureIsEnabled(feature);
@@ -45,59 +39,28 @@ const FeaturesService = Service.extend({
       this._logFeatureFlagMiss(feature);
     }
     return isEnabled;
-  },
+  }
 
   _resetFlags() {
-    this._flags = Object.create(null);
-  },
+    this._flags.clear();
+  }
 
   _featureIsEnabled(feature) {
     let normalizeFeature = this._normalizeFlag(feature);
-    return this._flags[normalizeFeature] || false;
-  },
+    return this._flags.get(normalizeFeature) || false;
+  }
 
   _logFeatureFlagMissEnabled() {
-    return !!this.get('config.LOG_FEATURE_FLAG_MISS');
-  },
+    return !!this.config.LOG_FEATURE_FLAG_MISS;
+  }
 
   _logFeatureFlagMiss(feature) {
     if (console && console.info) {
       console.info('Feature flag off:', feature);
     }
-  },
+  }
 
   _normalizeFlag(flag) {
     return camelize(flag);
-  },
-
-  unknownProperty(key) {
-    deprecate(
-      `Referencing \`features.get('${key}')\` or \`features.${key}\` directly is deprecated. Please use \`features.isEnabled('${key}')\` or the \`{{feature-flag '${key}'}}\` helper instead.`,
-      false,
-      {
-        id: 'ember-feature-flags.unknown-property',
-        until: '7.0.0',
-        for: 'ember-feature-flags',
-        since: {
-          enabled: '6.1.0'
-        }
-      }
-    );
-    return this.isEnabled(key);
   }
-});
-
-// Use a native getter instead of a `volatile` computed property since those
-// were deprecated as of Ember 3.9. The Object.defineProperty approach (from
-// https://github.com/emberjs/ember.js/issues/17709#issuecomment-469941364 is
-// used because defining native getters directly on EmberObject-based classes
-// is only supported from Ember 3.9 on (https://github.com/emberjs/ember.js/pull/17710)
-// and this preserves compatiblity until this addon drops support for older
-// Ember versions.
-Object.defineProperty(FeaturesService.prototype, 'flags', {
-  get() {
-    return Object.keys(this._flags);
-  }
-});
-
-export default FeaturesService;
+}
