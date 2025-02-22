@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Release (2025-02-22)
+
+ember-feature-flags 7.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-feature-flags`
+  * [#131](https://github.com/kategengler/ember-feature-flags/pull/131) Upgrade and modernize ember-feature-flags ([@kategengler](https://github.com/kategengler))
+    * Remove deprecated `withFeature` test helper ... `enableFeature` is the modern helper
+    * Remove deprecated proxy behavior of the Features service. `features.myFlag` and `features.get('myFlag')` are no longer available. Use `features.isEnabled('myFlag')` or the `feature-flag` template helper
+    * Update the features service to use tracked instead of the old Ember reactivity system. Flags are now stored as a TrackedMap
+    * Update the minimum Node version to Node 18
+    * Support Ember >= 4.12. For older versions use ember-feature-flags@6.1.0
+
+#### Committers: 1
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+
 ## v6.1.0 (2025-02-11)
 
 #### :boom: Deprecations
