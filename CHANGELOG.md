@@ -2,6 +2,17 @@
 
 ## Release (2025-02-22)
 
+ember-feature-flags 8.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-feature-flags`
+  * [#133](https://github.com/kategengler/ember-feature-flags/pull/133) Remove normalization of feature flags. Previously feature flags were converted to camelcase internally. ([@kategengler](https://github.com/kategengler))
+
+#### Committers: 1
+- Katie Gengler ([@kategengler](https://github.com/kategengler))
+
+## Release (2025-02-22)
+
 ember-feature-flags 7.0.0 (major)
 
 #### :boom: Breaking Change
