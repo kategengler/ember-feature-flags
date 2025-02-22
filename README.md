@@ -1,5 +1,5 @@
 
-# ember-feature-flags [![Build Status](https://travis-ci.org/kategengler/ember-feature-flags.svg?branch=master)](https://travis-ci.org/kategengler/ember-feature-flags) [![Ember Observer Score](http://emberobserver.com/badges/ember-feature-flags.svg)](http://emberobserver.com/addons/ember-feature-flags)
+# ember-feature-flags [![Build Status](https://github.com/kategengler/ember-feature-flags/actions/workflows/ci.yml/badge.svg)](https://github.com/kategengler/ember-feature-flags/actions/workflows/ci.yml) [![Ember Observer Score](http://emberobserver.com/badges/ember-feature-flags.svg)](http://emberobserver.com/addons/ember-feature-flags)
 
 An ember-cli addon to provide feature flags.
 
