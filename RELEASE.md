@@ -1,37 +1,27 @@
 # Release Process
 
-The following is the release process you should follow to publish a new version of `ember-feature-flags`.
+Releases in this repo are mostly automated using [release-plan](https://github.com/embroider-build/release-plan/). Once you label all your PRs correctly (see below) you will have an automatically generated PR that updates your CHANGELOG.md file and a `.release-plan.json` that is used to prepare the release once the PR is merged.
 
-## Update The Changelog
+## Preparation
 
-First, we need to update the `CHANGELOG.md` file for the project. We do this via the [lerna-changelog](https://github.com/lerna/lerna-changelog). This requires all PRs to be labeled appropriately. Use the following command to generate the changelog from the most recent tag:
+Since the majority of the actual release process is automated, the remaining tasks before releasing are:
 
-```bash
-yarn changelog
-```
+- correctly labeling **all** pull requests that have been merged since the last release
+- updating pull request titles so they make sense to our users
 
-Copy the output into `CHANGELOG.md`, where you replace the `Unreleased` with the appropriate version you are publishing.
+Some great information on why this is important can be found at [keepachangelog.com](https://keepachangelog.com/en/1.1.0/), but the overall
+guiding principle here is that changelogs are for humans, not machines.
 
-_Note: Ensure you set up a GitHub Token (as GITHUB_AUTH environment variable) when using the changelog generator, or else it will not work properly._
+When reviewing merged PR's the labels to be used are:
 
-Review the changes and then commit them with a message like:
+- breaking - Used when the PR is considered a breaking change.
+- enhancement - Used when the PR adds a new feature or enhancement.
+- bug - Used when the PR fixes a bug included in a previous release.
+- documentation - Used when the PR adds or updates documentation.
+- internal - Internal changes or things that don't fit in any other category.
 
-```bash
-git commit -am "Update CHANGELOG for vx.x.x."
-```
+**Note:** `release-plan` requires that **all** PRs are labeled. If a PR doesn't fit in a category it's fine to label it as `internal`
 
-## Bump The Version
+## Release
 
-Next, we bump the version of the addon and tag it. You can do this by using the default `npm version` command, like so:
-
-```bash
-npm version x.x.x
-```
-
-That should bump the version in `package.json`, commit it, and then tag it. Be sure to push the commit and tag.
-
-## Publish
-Next, push the version bump and the changelog changes to the repository. Upon successful build of the tag, Travis CI will publish to `npm`.
-
-
-**This RELEASE.md shamelessly cribbed from `ember-cli-qunit`**
+Once the prep work is completed, the actual release is straight forward: you just need to merge the open [Plan Release](https://github.com/kategengler/ember-feature-flags/pulls?q=is%3Apr+is%3Aopen+%22Prepare+Release%22+in%3Atitle) PR
