@@ -2,13 +2,13 @@
 
 {{outlet}}
 
-{{#if this.features.acceptanceFeature}}
+{{#if (this.isEnabled 'acceptanceFeature')}}
   <div class="acceptance-feature-on">ACCEPTANCE FEATURE ON</div>
 {{else}}
   <div class="acceptance-feature-off">ACCEPTANCE FEATURE OFF</div>
 {{/if}}
 
-{{#if this.features.featureFromConfig}}
+{{#if (this.isEnabled 'featureFromConfig')}}
   <div class="feature-from-config-on">CONFIG FEATURE ON</div>
 {{else}}
   <div class="feature-from-config-off">CONFIG FEATURE OFF</div>

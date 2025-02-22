@@ -15,4 +15,8 @@ export default class ApplicationController extends Controller {
       'acceptance-feature': false,
     });
   }
+
+  isEnabled = (flag) => {
+    return this.features.isEnabled(flag);
+  };
 }

@@ -90,6 +90,7 @@
     "ember-cli-babel": "^8.2.0",
     "ember-template-imports": "^4.3.0",
     "ember-auto-import": "^2.10.0",
+    "tracked-built-ins": "^4.0.0",
     "@ember/string": "^4.0.0"
   },
   "ember": {

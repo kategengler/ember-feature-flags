@@ -39,40 +39,6 @@ module('Unit | Service | features', function (hooks) {
     );
   });
 
-  test('unknownProperties', function (assert) {
-    let features = this.subject();
-
-    features.setup({
-      'some-new-feature': true,
-      'other-newThing': false,
-      'something.other-thing': true,
-    });
-
-    assert.equal(
-      true,
-      features.get('someNewFeature'),
-      'Should be available on features',
-    );
-    assert.equal(
-      false,
-      features.get('otherNewThing'),
-      'Should be available on features',
-    );
-    assert.equal(
-      true,
-      features.get('somethingOtherThing'),
-      'Should be available on features',
-    );
-
-    assert.throws(
-      function () {
-        features.set('someNewFeature');
-      },
-      /use enable/,
-      'Throws an error when setting an unknownProperty',
-    );
-  });
-
   test('it exposes list of known flags', function (assert) {
     let features = this.subject();
 
