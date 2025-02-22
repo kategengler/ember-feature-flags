@@ -81,10 +81,10 @@ You can get list of known feature flags via `flags` computed property:
 ```js
 this.features.setup({
   "new-billing-plans": true,
-  "new-homepage": false
+  "newHomepage": false
 });
 
-this.features.flags // ['newBillingPlans', 'newHomepage']
+this.features.flags // ['new-billing-plans', 'newHomepage'] // Flags are exactly as they are passed in when set
 ```
 
 
