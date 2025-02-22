@@ -2,27 +2,45 @@
   "name": "ember-feature-flags",
   "version": "6.1.0",
   "description": "Feature flags/toggles for Ember apps",
+  "keywords": [
+    "ember-addon",
+    "feature-flag",
+    "feature-toggle",
+    "features-switch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kategengler/ember-feature-flags"
+  },
+  "license": "MIT",
+  "author": "Katie Gengler",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
   "scripts": {
     "build": "ember build --environment=production",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:css": "stylelint \"**/*.css\"",
-    "lint:css:fix": "concurrently \"yarn:lint:css -- --fix\"",
-    "lint:fix": "concurrently \"yarn:lint:*:fix\" --names \"fix:\" --prefixColors auto",
+    "lint:css:fix": "concurrently \"pnpm:lint:css -- --fix\"",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
-    "lint": "concurrently \"yarn:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:js:fix": "eslint . --fix",
     "start": "ember serve",
-    "test": "concurrently \"yarn:lint\" \"yarn:test:*\" --names \"lint,test:\" --prefixColors auto",
+    "test": "concurrently \"pnpm:lint\" \"pnpm:test:*\" --names \"lint,test:\" --prefixColors auto",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "changelog": "lerna-changelog"
   },
-  "peerDependencies": {
-    "ember-source": ">= 4.0.0"
-  },
-  "engines": {
-    "node": ">= 18"
+  "dependencies": {
+    "@babel/core": "^7.26.7",
+    "ember-cli-babel": "^8.2.0",
+    "ember-template-imports": "^4.3.0",
+    "ember-auto-import": "^2.10.0",
+    "tracked-built-ins": "^4.0.0",
+    "@ember/string": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.26.5",
@@ -69,38 +87,17 @@
     "stylelint-prettier": "^5.0.3",
     "webpack": "^5.97.1"
   },
-  "keywords": [
-    "ember-addon",
-    "feature-flag",
-    "feature-toggle",
-    "features-switch"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kategengler/ember-feature-flags"
+  "peerDependencies": {
+    "ember-source": ">= 4.0.0"
   },
-  "license": "MIT",
-  "author": "Katie Gengler",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
-  "dependencies": {
-    "@babel/core": "^7.26.7",
-    "ember-cli-babel": "^8.2.0",
-    "ember-template-imports": "^4.3.0",
-    "ember-auto-import": "^2.10.0",
-    "tracked-built-ins": "^4.0.0",
-    "@ember/string": "^4.0.0"
+  "engines": {
+    "node": ">= 18"
   },
   "ember": {
     "edition": "octane"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "versionCompatibility": {
-      "ember": ">=1.12.1"
-    }
+    "configPath": "tests/dummy/config"
   },
   "changelog": {
     "repo": "kategengler/ember-feature-flags",

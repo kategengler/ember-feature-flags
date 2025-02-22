@@ -169,23 +169,10 @@ Note: for Ember before 2.3.0, you'll need to use [ember-getowner-polyfill](https
 
 ### Development
 
-#### Installation
+## Contributing
 
-* `git clone` this repository
-* cd ember-feature-flags`
-* `yarn install`
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-#### Running
+## License
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-#### Running Tests
-
-* `ember try:each` (Test against multiple ember versions)
-* `ember test`
-* `ember test --server`
-
-#### Deploying
-
-* See RELEASE.md
+This project is licensed under the [MIT License](LICENSE.md).
