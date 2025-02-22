@@ -7,6 +7,24 @@ ember-feature-flags 8.0.0 (major)
 #### :boom: Breaking Change
 * `ember-feature-flags`
   * [#133](https://github.com/kategengler/ember-feature-flags/pull/133) Remove normalization of feature flags. Previously feature flags were converted to camelcase internally. ([@kategengler](https://github.com/kategengler))
+    * Flags were converted to camelcase for storage and for later reference since they
+      could be referenced as properties on the Features service. Now, since
+      the only APIs to reference flags are as strings or keys, what you pass
+      in is what you should also pass in to check the values.
+
+      Previously:
+      ```
+      this.features.setup({
+        'foo-bar': true,
+        'barBaz': false
+      });
+      ```
+      
+      Could be checked by using `this.features.isEnabled('fooBar')` or
+      `this.features.isEnabled('bar-baz')`. Now both should be referenced as
+      they are set: `this.features.isEnabled('foo-bar')` or
+      `this.isEnabled('barBaz')`.
+   
 
 #### Committers: 1
 - Katie Gengler ([@kategengler](https://github.com/kategengler))
