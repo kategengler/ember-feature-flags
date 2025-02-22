@@ -49,9 +49,9 @@ module('Unit | Service | features', function (hooks) {
     });
 
     assert.deepEqual(features.get('flags'), [
-      'someNewFeature',
-      'otherNewThing',
-      'somethingOtherThing',
+      'some-new-feature',
+      'other-newThing',
+      'something.other-thing',
     ]);
   });
 });

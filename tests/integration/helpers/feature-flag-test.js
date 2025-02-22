@@ -13,7 +13,7 @@ module('Integration | Helper | feature-flag', function (hooks) {
     this.features.enable('some-feature');
 
     await render(hbs`
-      {{#if (feature-flag 'someFeature')}}
+      {{#if (feature-flag 'some-feature')}}
         Some text
       {{/if}}
     `);
@@ -22,7 +22,7 @@ module('Integration | Helper | feature-flag', function (hooks) {
   });
 
   test('it renders block invocation with disabled flag', async function (assert) {
-    this.features.disable('some-feature');
+    this.features.disable('someFeature');
 
     await render(hbs`
       {{#if (feature-flag 'someFeature')}}
