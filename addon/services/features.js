@@ -1,6 +1,5 @@
 /*eslint-disable no-extra-boolean-cast */
 import Service from '@ember/service';
-import { camelize } from '@ember/string';
 import { TrackedMap } from 'tracked-built-ins';
 
 export default class FeaturesService extends Service {
@@ -24,13 +23,11 @@ export default class FeaturesService extends Service {
   }
 
   enable(flag) {
-    let normalizedFlag = this._normalizeFlag(flag);
-    this._flags.set(normalizedFlag, true);
+    this._flags.set(flag, true);
   }
 
   disable(flag) {
-    let normalizedFlag = this._normalizeFlag(flag);
-    this._flags.set(normalizedFlag, false);
+    this._flags.set(flag, false);
   }
 
   isEnabled(feature) {
@@ -45,9 +42,8 @@ export default class FeaturesService extends Service {
     this._flags.clear();
   }
 
-  _featureIsEnabled(feature) {
-    let normalizeFeature = this._normalizeFlag(feature);
-    return this._flags.get(normalizeFeature) || false;
+  _featureIsEnabled(flag) {
+    return this._flags.get(flag) || false;
   }
 
   _logFeatureFlagMissEnabled() {
@@ -58,9 +54,5 @@ export default class FeaturesService extends Service {
     if (console && console.info) {
       console.info('Feature flag off:', feature);
     }
-  }
-
-  _normalizeFlag(flag) {
-    return camelize(flag);
   }
 }

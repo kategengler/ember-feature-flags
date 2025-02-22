@@ -20,7 +20,7 @@ module('Acceptance | feature flags', function (hooks) {
 
   test('features are defined in config on featureFlags', async function (assert) {
     config.featureFlags = {
-      'feature-from-config': true,
+      featureFromConfig: true,
     };
 
     await visit('/');
