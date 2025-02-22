@@ -1,17 +1,8 @@
 {
   "solution": {
     "ember-feature-flags": {
-      "impact": "major",
-      "oldVersion": "7.0.0",
-      "newVersion": "8.0.0",
-      "constraints": [
-        {
-          "impact": "major",
-          "reason": "Appears in changelog section :boom: Breaking Change"
-        }
-      ],
-      "pkgJSONPath": "./package.json"
+      "oldVersion": "8.0.0"
     }
   },
-  "description": "## Release (2025-02-22)\n\nember-feature-flags 8.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-feature-flags`\n  * [#133](https://github.com/kategengler/ember-feature-flags/pull/133) Remove normalization of feature flags. Previously feature flags were converted to camelcase internally. ([@kategengler](https://github.com/kategengler))\n\n#### Committers: 1\n- Katie Gengler ([@kategengler](https://github.com/kategengler))\n"
+  "description": "\n\n\n\n"
 }
