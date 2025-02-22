@@ -79,12 +79,12 @@ beforeModel() {
 
 You can get list of known feature flags via `flags` computed property:
 ```js
-this.get('features').setup({
+this.features.setup({
   "new-billing-plans": true,
   "new-homepage": false
 });
 
-this.get('features.flags') // ['newBillingPlans', 'newHomepage']
+this.features.flags // ['newBillingPlans', 'newHomepage']
 ```
 
 
